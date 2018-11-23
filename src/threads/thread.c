@@ -498,7 +498,7 @@ alloc_frame (struct thread *t, size_t size)
    will be in the run queue.)  If the run queue is empty, return
    idle_thread. */
 static struct thread *
-next_thread_to_run (void) 
+next_thread_to_run (void)
 {
   if (list_empty (&ready_list))
     return idle_thread;
@@ -568,15 +568,17 @@ schedule (void)
 
   /* Sleeping logic */
   bool thread_awakened;
-  struct sleelping_thread *sleeper;
+  struct sleeping_thread *sleeper;
   do {
     thread_awakened = false;
     if (!list_empty (&sleep_list)) {
-      sleeper = list_front (&sleep_list);
-      if (sleeper->activation_time >= timer_ticks ()) {
+      sleeper = list_entry (list_front (&sleep_list), struct sleeping_thread, elem);
+      int64_t activation_time = sleeper->activation_time;
+      if (activation_time >= timer_ticks ()) {
         thread_awakened = true;
         list_pop_front (&sleep_list);
-        thread_unblock(sleeper->t);
+        struct thread *t = sleeper->thread;
+        thread_unblock(t);
       }
     }
   } while (thread_awakened);
@@ -614,7 +616,7 @@ uint32_t thread_stack_ofs = offsetof (struct thread, stack);
 
 /* Appends sleeper thread to sleep_list */
 void append_sleeper (struct sleeping_thread *structure) {
-  list_insert_ordered (&sleep_list, structure, sleeper_less, NULL);
+  list_insert_ordered (&sleep_list, &(structure->elem), sleeper_less, NULL);
 }
 
 /* Compares the value of two sleeping_thread structure elements A and B, given
@@ -623,6 +625,7 @@ void append_sleeper (struct sleeping_thread *structure) {
 bool sleeper_less (const struct list_elem *a,
                    const struct list_elem *b,
                    void *aux) {
-  return ((struct sleeping_thread*) a)->activation_time <
-          ((struct sleeping_thread*) b)->activation_time;
+  struct sleeping_thread *sleeperA = list_entry (a, struct sleeping_thread, elem);
+  struct sleeping_thread *sleeperB = list_entry (b, struct sleeping_thread, elem);
+  return sleeperA->activation_time < sleeperB->activation_time;
 };

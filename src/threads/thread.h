@@ -103,8 +103,9 @@ struct thread
   };
 
 struct sleeping_thread {
+  struct list_elem elem;
   struct thread *thread;
-  int_64 activation_time;
+  int64_t activation_time;
 };
 
 /* If false (default), use round-robin scheduler.
