@@ -574,7 +574,7 @@ schedule (void)
     if (!list_empty (&sleep_list)) {
       sleeper = list_entry (list_front (&sleep_list), struct sleeping_thread, elem);
       int64_t activation_time = sleeper->activation_time;
-      if (activation_time >= timer_ticks ()) {
+      if (activation_time <= timer_ticks ()) {
         thread_awakened = true;
         list_pop_front (&sleep_list);
         struct thread *t = sleeper->thread;
