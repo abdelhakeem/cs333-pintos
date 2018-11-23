@@ -335,6 +335,9 @@ thread_foreach (thread_action_func *func, void *aux)
 void
 thread_set_priority (int new_priority) 
 {
+  if (!thread_mlfqs) {
+    /* TODO: H: Implement priority donation logic here */
+  }
   thread_current ()->priority = new_priority;
 }
 
@@ -552,6 +555,9 @@ thread_schedule_tail (struct thread *prev)
 static void
 schedule (void) 
 {
+  if (thread_mlfqs) {
+    /* TODO: H: Update priorities dynamically here? */
+  }
   struct thread *cur = running_thread ();
   struct thread *next = next_thread_to_run ();
   struct thread *prev = NULL;
