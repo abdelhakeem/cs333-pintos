@@ -4,6 +4,7 @@
 #include <random.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 #include "threads/flags.h"
 #include "threads/interrupt.h"
 #include "threads/intr-stubs.h"
@@ -11,6 +12,7 @@
 #include "threads/switch.h"
 #include "threads/synch.h"
 #include "threads/vaddr.h"
+#include "devices/timer.h"
 #ifdef USERPROG
 #include "userprog/process.h"
 #endif
@@ -563,8 +565,21 @@ schedule (void)
   if (thread_mlfqs) {
     /* TODO: H: Update priorities dynamically here? */
   }
-  /* TODO: H: Sleeping logic */
 
+  /* Sleeping logic */
+  bool thread_awakened;
+  struct sleelping_thread *sleeper;
+  do {
+    thread_awakened = false;
+    if (!list_empty (&sleep_list)) {
+      sleeper = list_front (&sleep_list);
+      if (sleeper->activation_time >= timer_ticks ()) {
+        thread_awakened = true;
+        list_pop_front (&sleep_list);
+        thread_unblock(sleeper->t);
+      }
+    }
+  } while (thread_awakened);
 
   struct thread *cur = running_thread ();
   struct thread *next = next_thread_to_run ();
@@ -596,3 +611,18 @@ allocate_tid (void)
 /* Offset of `stack' member within `struct thread'.
    Used by switch.S, which can't figure it out on its own. */
 uint32_t thread_stack_ofs = offsetof (struct thread, stack);
+
+/* Appends sleeper thread to sleep_list */
+void append_sleeper (struct sleeping_thread *structure) {
+  list_insert_ordered (&sleep_list, structure, sleeper_less, NULL);
+}
+
+/* Compares the value of two sleeping_thread structure elements A and B, given
+   useless auxiliary data AUX.  Returns true if A is less than B, or
+   false if A is greater than or equal to B according to activation_time. */
+bool sleeper_less (const struct list_elem *a,
+                   const struct list_elem *b,
+                   void *aux) {
+  return ((struct sleeping_thread*) a)->activation_time <
+          ((struct sleeping_thread*) b)->activation_time;
+};
