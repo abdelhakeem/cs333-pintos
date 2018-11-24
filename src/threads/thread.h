@@ -102,6 +102,12 @@ struct thread
     unsigned magic;                     /* Detects stack overflow. */
   };
 
+struct sleeping_thread {
+  struct list_elem elem;
+  struct thread *thread;
+  int64_t activation_time;
+};
+
 /* If false (default), use round-robin scheduler.
    If true, use multi-level feedback queue scheduler.
    Controlled by kernel command-line option "-o mlfqs". */
@@ -150,4 +156,9 @@ int thread_get_load_avg (void);
 */
 bool compereThreadPriority(const struct list_elem *a,
                            const struct list_elem *b, void *aux);
+
+void append_sleeper (struct sleeping_thread *structure);
+list_less_func sleeper_less;
+
+
 #endif /* threads/thread.h */
