@@ -207,7 +207,9 @@ thread_create (const char *name, int priority,
 
   /* Add to run queue. */
   thread_unblock (t);
-
+  if(t->priority > thread_get_priority()){
+    thread_yield();
+  }
   return tid;
 }
 
@@ -344,8 +346,12 @@ thread_set_priority (int new_priority)
 {
   if (!thread_mlfqs) {
     /* TODO: H: Implement priority donation logic here */
+    int oldPriority = thread_get_priority();
+    thread_current ()->priority = new_priority;
+    if(oldPriority > new_priority){
+	thread_yield();
+    }
   }
-  thread_current ()->priority = new_priority;
 }
 
 /* Returns the current thread's priority. */
@@ -502,8 +508,12 @@ next_thread_to_run (void)
 {
   if (list_empty (&ready_list))
     return idle_thread;
-  else
-    return list_entry (list_pop_front (&ready_list), struct thread, elem);
+  else 
+  {
+    struct list_elem *maxElem = list_max (&ready_list, compereThreadPriority, NULL);
+    list_remove(maxElem);
+    return list_entry (maxElem, struct thread, elem);
+  }
 }
 
 /* Completes a thread switch by activating the new thread's page
@@ -613,6 +623,25 @@ allocate_tid (void)
 /* Offset of `stack' member within `struct thread'.
    Used by switch.S, which can't figure it out on its own. */
 uint32_t thread_stack_ofs = offsetof (struct thread, stack);
+
+
+// new function by M.Ismail
+/* Compares the value of two threads which containing
+   list elements A and B.
+   Returns
+        true if priority of thread contains A is
+            less than priority of thread contains B.
+        false if priority of thread contains A is
+            greater than or equal to priority of
+            thread contains B.
+*/
+bool compereThreadPriority(const struct list_elem *a,
+                           const struct list_elem *b, void *aux UNUSED){
+
+    struct thread * t1 = list_entry (a, struct thread, elem);
+    struct thread * t2 = list_entry (b, struct thread, elem);
+    return t1->priority < t2->priority;
+}
 
 /* Appends sleeper thread to sleep_list */
 void append_sleeper (struct sleeping_thread *structure) {

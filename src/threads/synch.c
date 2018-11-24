@@ -111,13 +111,25 @@ sema_up (struct semaphore *sema)
   enum intr_level old_level;
 
   ASSERT (sema != NULL);
-
+  struct thread *t = thread_current();
   old_level = intr_disable ();
-  if (!list_empty (&sema->waiters)) 
-    thread_unblock (list_entry (list_pop_front (&sema->waiters),
-                                struct thread, elem));
+  if (!list_empty (&sema->waiters))
+  {
+    struct list_elem *maxElem = list_max (&sema->waiters, 
+                                     compereThreadPriority, NULL);
+    list_remove(maxElem);
+    //thread_unblock(list_entry (maxElem,struct thread, elem));
+    t = list_entry (maxElem,struct thread, elem);
+    thread_unblock(t);
+     
+    /*thread_unblock (list_entry (list_pop_front (&sema->waiters),
+                                struct thread, elem));*/
+  }
   sema->value++;
   intr_set_level (old_level);
+  if(t->priority > thread_get_priority()){
+      thread_yield();
+  }
 }
 
 static void sema_test_helper (void *sema_);
@@ -301,6 +313,29 @@ cond_wait (struct condition *cond, struct lock *lock)
   lock_acquire (lock);
 }
 
+// new functions by M.Ismail
+/*Compares the value of two threads which waiting on condition
+  variables containing list elements A and B.
+   Returns
+        true if priority of thread contains A is
+            less than priority of thread contains B.
+        false if priority of thread contains A is
+            greater than or equal to priority of
+            thread contains B.
+*/
+static bool compereSemThreadPriority(const struct list_elem *a,
+                           const struct list_elem *b, void *aux UNUSED){
+
+  struct semaphore_elem * s1 = list_entry (a, struct semaphore_elem, elem);
+  struct semaphore_elem * s2 = list_entry (b, struct semaphore_elem, elem);
+  struct list_elem *e1 = list_begin(&s1->semaphore.waiters);
+  struct list_elem *e2 = list_begin(&s2->semaphore.waiters);
+  struct thread *t1 = list_entry (e1, struct thread, elem);
+  struct thread *t2 = list_entry (e2, struct thread, elem);
+  return t1->priority < t2->priority;
+
+}
+
 /* If any threads are waiting on COND (protected by LOCK), then
    this function signals one of them to wake up from its wait.
    LOCK must be held before calling this function.
@@ -316,9 +351,15 @@ cond_signal (struct condition *cond, struct lock *lock UNUSED)
   ASSERT (!intr_context ());
   ASSERT (lock_held_by_current_thread (lock));
 
-  if (!list_empty (&cond->waiters)) 
-    sema_up (&list_entry (list_pop_front (&cond->waiters),
-                          struct semaphore_elem, elem)->semaphore);
+  if (!list_empty (&cond->waiters))
+  {
+    struct list_elem *maxElem = list_max (&cond->waiters,
+                                        compereSemThreadPriority, NULL);
+    list_remove(maxElem);
+    sema_up (&list_entry (maxElem, struct semaphore_elem, elem)->semaphore);
+    /*sema_up (&list_entry (list_pop_front (&cond->waiters),
+                          struct semaphore_elem, elem)->semaphore);*/
+  }
 }
 
 /* Wakes up all threads, if any, waiting on COND (protected by

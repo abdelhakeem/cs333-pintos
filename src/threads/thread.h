@@ -144,7 +144,21 @@ void thread_set_nice (int);
 int thread_get_recent_cpu (void);
 int thread_get_load_avg (void);
 
+// new functions by M.Ismail
+/*Compares the value of two threads which containing
+   list elements A and B.
+   Returns
+        true if priority of thread contains A is
+            less than priority of thread contains B.
+        false if priority of thread contains A is
+            greater than or equal to priority of
+            thread contains B.
+*/
+bool compereThreadPriority(const struct list_elem *a,
+                           const struct list_elem *b, void *aux);
+
 void append_sleeper (struct sleeping_thread *structure);
 list_less_func sleeper_less;
+
 
 #endif /* threads/thread.h */
