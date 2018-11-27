@@ -232,7 +232,7 @@ lock_acquire (struct lock *lock)
 
   sema_down (&lock->semaphore);
   lock->holder = current;
-  current->donee_lock = NULL;
+  // current->donee_lock = NULL;
 }
 
 /* Tries to acquires LOCK and returns true if successful or false
@@ -266,8 +266,15 @@ lock_release (struct lock *lock)
   ASSERT (lock != NULL);
   ASSERT (lock_held_by_current_thread (lock));
 
+  lock->holder = NULL;
+  sema_up (&lock->semaphore);
+
   /* Remove priority donation attributes in this thread
-     that are associated with LOCK. */
+     that are associated with LOCK.
+     We have to yield the CPU afterwards to let the scheduler
+     decide which thread to run right now after this thread
+     got rid of one of its donated priorities, which may make
+     it no longer one of the highest-priority threads. */
   struct hash *dp_table = thread_current ()->donated_priorities;
   if (dp_table != NULL)
     {
@@ -275,9 +282,7 @@ lock_release (struct lock *lock)
       if (found != NULL)
         dp_table_delete (dp_table, &found->elem);
     }
-
-  lock->holder = NULL;
-  sema_up (&lock->semaphore);
+  thread_yield ();
 }
 
 /* Returns true if the current thread holds LOCK, false
