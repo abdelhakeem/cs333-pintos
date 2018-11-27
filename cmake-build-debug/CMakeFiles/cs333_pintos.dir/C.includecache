@@ -1,0 +1,2864 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/lib/ctype.h
+
+../src/lib/debug.h
+
+../src/lib/inttypes.h
+stdint.h
+-
+
+../src/lib/kernel/bitmap.h
+stdbool.h
+-
+stddef.h
+-
+inttypes.h
+-
+
+../src/lib/kernel/console.h
+
+../src/lib/kernel/list.h
+stdbool.h
+-
+stddef.h
+-
+stdint.h
+-
+
+../src/lib/limits.h
+
+../src/lib/packed.h
+
+../src/lib/random.h
+stddef.h
+-
+
+../src/lib/round.h
+
+../src/lib/stdarg.h
+
+../src/lib/stdbool.h
+
+../src/lib/stddef.h
+
+../src/lib/stdint.h
+
+../src/lib/stdio.h
+debug.h
+-
+stdarg.h
+-
+stdbool.h
+-
+stddef.h
+-
+stdint.h
+-
+
+../src/lib/stdlib.h
+stddef.h
+-
+
+../src/lib/string.h
+stddef.h
+-
+
+../src/lib/syscall-nr.h
+
+../src/lib/user/syscall.h
+stdbool.h
+-
+debug.h
+-
+
+../src/lib/ustar.h
+stdbool.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/block.c
+devices/block.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/block.h
+list.h
+-
+string.h
+-
+stdio.h
+-
+devices/ide.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/ide.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/malloc.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/ide.c
+devices/ide.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/ide.h
+ctype.h
+-
+debug.h
+-
+stdbool.h
+-
+stdio.h
+-
+devices/block.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/block.h
+devices/partition.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/partition.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/timer.h
+threads/io.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/io.h
+threads/interrupt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/interrupt.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/synch.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/input.c
+devices/input.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/input.h
+debug.h
+-
+devices/intq.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/intq.h
+devices/serial.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/serial.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/intq.c
+devices/intq.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/intq.h
+debug.h
+-
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/thread.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/kbd.c
+devices/kbd.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/kbd.h
+ctype.h
+-
+debug.h
+-
+stdio.h
+-
+string.h
+-
+devices/input.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/input.h
+devices/shutdown.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/shutdown.h
+threads/interrupt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/interrupt.h
+threads/io.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/io.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/partition.c
+devices/partition.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/partition.h
+packed.h
+-
+stdlib.h
+-
+string.h
+-
+stdio.h
+-
+devices/block.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/block.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/malloc.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/pit.c
+devices/pit.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/pit.h
+debug.h
+-
+stdint.h
+-
+threads/interrupt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/interrupt.h
+threads/io.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/io.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/rtc.c
+devices/rtc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/rtc.h
+stdio.h
+-
+threads/io.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/io.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/serial.c
+devices/serial.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/serial.h
+debug.h
+-
+devices/input.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/input.h
+devices/intq.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/intq.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/timer.h
+threads/io.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/io.h
+threads/interrupt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/interrupt.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/thread.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/shutdown.c
+devices/shutdown.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/shutdown.h
+console.h
+-
+stdio.h
+-
+devices/kbd.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/kbd.h
+devices/serial.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/serial.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/timer.h
+threads/io.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/io.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/thread.h
+userprog/exception.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/userprog/exception.h
+devices/block.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/block.h
+filesys/filesys.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/filesys/filesys.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/speaker.c
+devices/speaker.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/speaker.h
+devices/pit.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/pit.h
+threads/io.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/io.h
+threads/interrupt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/interrupt.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/timer.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/timer.c
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/timer.h
+debug.h
+-
+inttypes.h
+-
+round.h
+-
+stdio.h
+-
+devices/pit.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/pit.h
+threads/interrupt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/interrupt.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/thread.h
+list.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/vga.c
+devices/vga.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/vga.h
+round.h
+-
+stdint.h
+-
+stddef.h
+-
+string.h
+-
+devices/speaker.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/devices/speaker.h
+threads/io.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/io.h
+threads/interrupt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/interrupt.h
+threads/vaddr.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/devices/threads/vaddr.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/examples/bubsort.c
+stdio.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/examples/cat.c
+stdio.h
+-
+syscall.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/examples/cmp.c
+stdio.h
+-
+syscall.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/examples/cp.c
+stdio.h
+-
+syscall.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/examples/echo.c
+stdio.h
+-
+syscall.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/examples/halt.c
+syscall.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/examples/hex-dump.c
+stdio.h
+-
+syscall.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/examples/insult.c
+ctype.h
+-
+debug.h
+-
+random.h
+-
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+syscall.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/examples/lineup.c
+ctype.h
+-
+stdio.h
+-
+syscall.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/examples/ls.c
+syscall.h
+-
+stdio.h
+-
+string.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/examples/matmult.c
+stdio.h
+-
+syscall.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/examples/mcat.c
+stdio.h
+-
+syscall.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/examples/mcp.c
+stdio.h
+-
+string.h
+-
+syscall.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/examples/mkdir.c
+stdio.h
+-
+syscall.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/examples/pwd.c
+syscall.h
+-
+stdbool.h
+-
+stdio.h
+-
+string.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/examples/recursor.c
+stdio.h
+-
+stdlib.h
+-
+syscall.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/examples/rm.c
+stdio.h
+-
+syscall.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/examples/shell.c
+stdbool.h
+-
+stdio.h
+-
+string.h
+-
+syscall.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/directory.c
+filesys/directory.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/directory.h
+stdio.h
+-
+string.h
+-
+list.h
+-
+filesys/filesys.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/filesys.h
+filesys/inode.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/inode.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/threads/malloc.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/file.c
+filesys/file.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/file.h
+debug.h
+-
+filesys/inode.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/inode.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/threads/malloc.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys.c
+filesys/filesys.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/filesys.h
+debug.h
+-
+stdio.h
+-
+string.h
+-
+filesys/file.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/file.h
+filesys/free-map.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/free-map.h
+filesys/inode.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/inode.h
+filesys/directory.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/directory.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/free-map.c
+filesys/free-map.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/free-map.h
+bitmap.h
+-
+debug.h
+-
+filesys/file.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/file.h
+filesys/filesys.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/filesys.h
+filesys/inode.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/inode.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/fsutil.c
+filesys/fsutil.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/fsutil.h
+debug.h
+-
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+ustar.h
+-
+filesys/directory.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/directory.h
+filesys/file.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/file.h
+filesys/filesys.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/filesys.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/threads/malloc.h
+threads/palloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/threads/palloc.h
+threads/vaddr.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/threads/vaddr.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/inode.c
+filesys/inode.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/inode.h
+list.h
+-
+debug.h
+-
+round.h
+-
+string.h
+-
+filesys/filesys.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/filesys.h
+filesys/free-map.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/filesys/free-map.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/filesys/threads/malloc.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/arithmetic.c
+stdint.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/debug.c
+debug.h
+-
+stdarg.h
+-
+stdbool.h
+-
+stddef.h
+-
+stdio.h
+-
+string.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/debug.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/bitmap.c
+bitmap.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/bitmap.h
+debug.h
+-
+limits.h
+-
+round.h
+-
+stdio.h
+-
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/threads/malloc.h
+filesys/file.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/filesys/file.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/bitmap.h
+stdbool.h
+-
+stddef.h
+-
+inttypes.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/console.c
+console.h
+-
+stdarg.h
+-
+stdio.h
+-
+devices/serial.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/devices/serial.h
+devices/vga.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/devices/vga.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/threads/init.h
+threads/interrupt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/threads/interrupt.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/threads/synch.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/debug.c
+debug.h
+-
+console.h
+-
+stdarg.h
+-
+stdbool.h
+-
+stddef.h
+-
+stdio.h
+-
+string.h
+-
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/threads/init.h
+threads/interrupt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/threads/interrupt.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/threads/thread.h
+threads/switch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/threads/switch.h
+threads/vaddr.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/threads/vaddr.h
+devices/serial.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/devices/serial.h
+devices/shutdown.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/devices/shutdown.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/hash.c
+hash.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/hash.h
+../debug.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/debug.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/threads/malloc.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/hash.h
+stdbool.h
+-
+stddef.h
+-
+stdint.h
+-
+list.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/list.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/list.c
+list.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/list.h
+../debug.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/debug.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/kernel/list.h
+stdbool.h
+-
+stddef.h
+-
+stdint.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/random.c
+random.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/random.h
+stdbool.h
+-
+stdint.h
+-
+debug.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/debug.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/random.h
+stddef.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/stdio.c
+stdio.h
+-
+ctype.h
+-
+inttypes.h
+-
+round.h
+-
+stdint.h
+-
+string.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/stdlib.c
+ctype.h
+-
+debug.h
+-
+random.h
+-
+stdlib.h
+-
+stdbool.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/string.c
+string.h
+-
+debug.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/syscall-nr.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/user/console.c
+stdio.h
+-
+string.h
+-
+syscall.h
+-
+syscall-nr.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/user/debug.c
+debug.h
+-
+stdarg.h
+-
+stdbool.h
+-
+stdio.h
+-
+syscall.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/user/entry.c
+syscall.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/user/syscall.c
+syscall.h
+-
+../syscall-nr.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/syscall-nr.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/lib/ustar.c
+ustar.h
+-
+limits.h
+-
+packed.h
+-
+stdio.h
+-
+string.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/arc4.c
+stdint.h
+-
+tests/arc4.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/tests/arc4.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/cksum.c
+stdint.h
+-
+tests/cksum.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/tests/cksum.h
+stdio.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/child-syn-read.c
+random.h
+-
+stdio.h
+-
+stdlib.h
+-
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/lib.h
+tests/filesys/base/syn-read.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/filesys/base/syn-read.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/child-syn-wrt.c
+random.h
+-
+stdlib.h
+-
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/lib.h
+tests/filesys/base/syn-write.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/filesys/base/syn-write.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/lg-create.c
+tests/filesys/create.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/filesys/create.inc
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/lg-full.c
+tests/filesys/base/full.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/filesys/base/full.inc
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/lg-random.c
+tests/filesys/base/random.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/filesys/base/random.inc
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/lg-seq-block.c
+tests/filesys/base/seq-block.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/filesys/base/seq-block.inc
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/lg-seq-random.c
+tests/filesys/base/seq-random.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/filesys/base/seq-random.inc
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/sm-create.c
+tests/filesys/create.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/filesys/create.inc
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/sm-full.c
+tests/filesys/base/full.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/filesys/base/full.inc
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/sm-random.c
+tests/filesys/base/random.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/filesys/base/random.inc
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/sm-seq-block.c
+tests/filesys/base/seq-block.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/filesys/base/seq-block.inc
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/sm-seq-random.c
+tests/filesys/base/seq-random.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/filesys/base/seq-random.inc
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/syn-read.c
+random.h
+-
+stdio.h
+-
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/main.h
+tests/filesys/base/syn-read.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/filesys/base/syn-read.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/syn-remove.c
+random.h
+-
+string.h
+-
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/syn-write.c
+random.h
+-
+stdio.h
+-
+string.h
+-
+syscall.h
+-
+tests/filesys/base/syn-write.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/filesys/base/syn-write.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/base/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/child-syn-rw.c
+random.h
+-
+stdlib.h
+-
+syscall.h
+-
+tests/filesys/extended/syn-rw.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/filesys/extended/syn-rw.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/lib.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/dir-empty-name.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/dir-mk-tree.c
+tests/filesys/extended/mk-tree.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/filesys/extended/mk-tree.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/dir-mkdir.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/dir-open.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/dir-over-file.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/dir-rm-cwd.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/dir-rm-parent.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/dir-rm-root.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/dir-rm-tree.c
+stdarg.h
+-
+stdio.h
+-
+syscall.h
+-
+tests/filesys/extended/mk-tree.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/filesys/extended/mk-tree.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/dir-rmdir.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/dir-under-file.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/dir-vine.c
+string.h
+-
+stdio.h
+-
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/grow-create.c
+tests/filesys/create.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/filesys/create.inc
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/grow-dir-lg.c
+tests/filesys/extended/grow-dir.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/filesys/extended/grow-dir.inc
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/grow-file-size.c
+syscall.h
+-
+tests/filesys/seq-test.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/filesys/seq-test.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/grow-root-lg.c
+tests/filesys/extended/grow-dir.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/filesys/extended/grow-dir.inc
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/grow-root-sm.c
+tests/filesys/extended/grow-dir.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/filesys/extended/grow-dir.inc
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/grow-seq-lg.c
+tests/filesys/extended/grow-seq.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/filesys/extended/grow-seq.inc
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/grow-seq-sm.c
+tests/filesys/extended/grow-seq.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/filesys/extended/grow-seq.inc
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/grow-sparse.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/grow-tell.c
+syscall.h
+-
+tests/filesys/seq-test.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/filesys/seq-test.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/grow-two-files.c
+random.h
+-
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/mk-tree.c
+stdio.h
+-
+syscall.h
+-
+tests/filesys/extended/mk-tree.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/filesys/extended/mk-tree.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/lib.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/syn-rw.c
+random.h
+-
+syscall.h
+-
+tests/filesys/extended/syn-rw.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/filesys/extended/syn-rw.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/extended/tar.c
+ustar.h
+-
+syscall.h
+-
+stdio.h
+-
+string.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/seq-test.c
+tests/filesys/seq-test.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/tests/filesys/seq-test.h
+random.h
+-
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/filesys/tests/lib.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/internal/list.c
+debug.h
+-
+list.h
+-
+random.h
+-
+stdio.h
+-
+threads/test.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/internal/threads/test.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/internal/stdio.c
+limits.h
+-
+stdarg.h
+-
+stddef.h
+-
+stdlib.h
+-
+stdio.h
+-
+string.h
+-
+threads/test.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/internal/threads/test.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/internal/stdlib.c
+debug.h
+-
+limits.h
+-
+random.h
+-
+stdlib.h
+-
+stdio.h
+-
+threads/test.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/internal/threads/test.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/lib.c
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/tests/lib.h
+random.h
+-
+stdarg.h
+-
+stdio.h
+-
+string.h
+-
+syscall.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/main.c
+random.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/alarm-negative.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/malloc.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/devices/timer.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/alarm-priority.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/malloc.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/devices/timer.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/alarm-simultaneous.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/malloc.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/devices/timer.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/alarm-wait.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/malloc.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/devices/timer.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/alarm-zero.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/malloc.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/devices/timer.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/mlfqs-block.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/malloc.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/devices/timer.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/mlfqs-fair.c
+stdio.h
+-
+inttypes.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/malloc.h
+threads/palloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/palloc.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/devices/timer.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/mlfqs-load-1.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/malloc.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/devices/timer.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/mlfqs-load-60.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/malloc.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/devices/timer.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/mlfqs-load-avg.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/malloc.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/devices/timer.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/mlfqs-recent-1.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/malloc.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/devices/timer.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/priority-change.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/priority-condvar.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/malloc.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/devices/timer.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/priority-donate-chain.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/priority-donate-lower.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/priority-donate-multiple.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/priority-donate-multiple2.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/priority-donate-nest.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/priority-donate-one.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/priority-donate-sema.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/priority-fifo.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/devices/timer.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/malloc.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/priority-preempt.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/priority-sema.c
+stdio.h
+-
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/init.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/malloc.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/synch.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/threads/thread.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/devices/timer.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests.c
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/threads/tests/threads/tests.h
+debug.h
+-
+string.h
+-
+stdio.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/args.c
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/bad-jump.c
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/bad-jump2.c
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/bad-read.c
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/bad-read2.c
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/bad-write.c
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/bad-write2.c
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/boundary.c
+inttypes.h
+-
+round.h
+-
+string.h
+-
+tests/userprog/boundary.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/userprog/boundary.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/child-bad.c
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/child-close.c
+ctype.h
+-
+stdio.h
+-
+stdlib.h
+-
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/child-rox.c
+ctype.h
+-
+stdio.h
+-
+stdlib.h
+-
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/child-simple.c
+stdio.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/close-bad-fd.c
+syscall.h
+-
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/close-normal.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/close-stdin.c
+syscall.h
+-
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/close-stdout.c
+syscall.h
+-
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/close-twice.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/create-bad-ptr.c
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/create-bound.c
+syscall.h
+-
+tests/userprog/boundary.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/userprog/boundary.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/create-empty.c
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/create-exists.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/create-long.c
+string.h
+-
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/create-normal.c
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/create-null.c
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/exec-arg.c
+syscall.h
+-
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/exec-bad-ptr.c
+syscall.h
+-
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/exec-bound-2.c
+syscall-nr.h
+-
+tests/userprog/boundary.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/userprog/boundary.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/exec-bound-3.c
+syscall-nr.h
+-
+tests/userprog/boundary.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/userprog/boundary.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/exec-bound.c
+syscall.h
+-
+tests/userprog/boundary.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/userprog/boundary.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/exec-missing.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/exec-multiple.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/exec-once.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/exit.c
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/halt.c
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/multi-child-fd.c
+stdio.h
+-
+syscall.h
+-
+tests/userprog/sample.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/userprog/sample.inc
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/multi-recurse.c
+debug.h
+-
+stdlib.h
+-
+stdio.h
+-
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/no-vm/multi-oom.c
+debug.h
+-
+stdio.h
+-
+string.h
+-
+stdlib.h
+-
+stdbool.h
+-
+syscall.h
+-
+random.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/no-vm/tests/lib.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/open-bad-ptr.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/open-boundary.c
+syscall.h
+-
+tests/userprog/boundary.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/userprog/boundary.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/open-empty.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/open-missing.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/open-normal.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/open-null.c
+stddef.h
+-
+syscall.h
+-
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/open-twice.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/read-bad-fd.c
+limits.h
+-
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/read-bad-ptr.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/read-boundary.c
+string.h
+-
+syscall.h
+-
+tests/userprog/boundary.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/userprog/boundary.h
+tests/userprog/sample.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/userprog/sample.inc
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/read-normal.c
+tests/userprog/sample.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/userprog/sample.inc
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/read-stdout.c
+stdio.h
+-
+syscall.h
+-
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/read-zero.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/rox-child.c
+tests/userprog/rox-child.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/userprog/rox-child.inc
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/rox-multichild.c
+tests/userprog/rox-child.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/userprog/rox-child.inc
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/rox-simple.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/sc-bad-arg.c
+syscall-nr.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/sc-bad-sp.c
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/sc-boundary-2.c
+syscall-nr.h
+-
+tests/userprog/boundary.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/userprog/boundary.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/sc-boundary-3.c
+syscall-nr.h
+-
+tests/userprog/boundary.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/userprog/boundary.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/sc-boundary.c
+syscall-nr.h
+-
+tests/userprog/boundary.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/userprog/boundary.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/wait-bad-pid.c
+syscall.h
+-
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/wait-killed.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/wait-simple.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/wait-twice.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/write-bad-fd.c
+limits.h
+-
+syscall.h
+-
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/write-bad-ptr.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/write-boundary.c
+string.h
+-
+syscall.h
+-
+tests/userprog/boundary.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/userprog/boundary.h
+tests/userprog/sample.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/userprog/sample.inc
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/write-normal.c
+syscall.h
+-
+tests/userprog/sample.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/userprog/sample.inc
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/write-stdin.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/write-zero.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/userprog/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/child-inherit.c
+string.h
+-
+tests/vm/sample.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/sample.inc
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/child-linear.c
+string.h
+-
+tests/arc4.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/arc4.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/child-mm-wrt.c
+string.h
+-
+syscall.h
+-
+tests/vm/sample.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/sample.inc
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/child-qsort-mm.c
+debug.h
+-
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+tests/vm/qsort.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/qsort.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/child-qsort.c
+debug.h
+-
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+tests/vm/qsort.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/qsort.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/child-sort.c
+debug.h
+-
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/mmap-bad-fd.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/mmap-clean.c
+string.h
+-
+syscall.h
+-
+tests/vm/sample.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/sample.inc
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/mmap-close.c
+string.h
+-
+syscall.h
+-
+tests/vm/sample.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/sample.inc
+tests/arc4.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/arc4.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/mmap-exit.c
+syscall.h
+-
+tests/vm/sample.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/sample.inc
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/mmap-inherit.c
+string.h
+-
+syscall.h
+-
+tests/vm/sample.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/sample.inc
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/mmap-misalign.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/mmap-null.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/mmap-over-code.c
+stdint.h
+-
+round.h
+-
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/mmap-over-data.c
+stdint.h
+-
+round.h
+-
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/mmap-over-stk.c
+stdint.h
+-
+round.h
+-
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/mmap-overlap.c
+syscall.h
+-
+tests/vm/sample.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/sample.inc
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/mmap-read.c
+string.h
+-
+syscall.h
+-
+tests/vm/sample.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/sample.inc
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/mmap-remove.c
+string.h
+-
+syscall.h
+-
+tests/vm/sample.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/sample.inc
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/mmap-shuffle.c
+stdio.h
+-
+string.h
+-
+syscall.h
+-
+tests/arc4.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/arc4.h
+tests/cksum.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/cksum.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/mmap-twice.c
+string.h
+-
+syscall.h
+-
+tests/vm/sample.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/sample.inc
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/mmap-unmap.c
+syscall.h
+-
+tests/vm/sample.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/sample.inc
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/mmap-write.c
+string.h
+-
+syscall.h
+-
+tests/vm/sample.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/sample.inc
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/mmap-zero.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/page-linear.c
+string.h
+-
+tests/arc4.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/arc4.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/page-merge-mm.c
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+tests/vm/parallel-merge.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/parallel-merge.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/page-merge-par.c
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+tests/vm/parallel-merge.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/parallel-merge.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/page-merge-seq.c
+syscall.h
+-
+tests/arc4.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/arc4.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/page-merge-stk.c
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+tests/vm/parallel-merge.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/parallel-merge.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/page-parallel.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/page-shuffle.c
+stdbool.h
+-
+tests/arc4.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/arc4.h
+tests/cksum.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/cksum.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/parallel-merge.c
+tests/vm/parallel-merge.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/parallel-merge.h
+stdio.h
+-
+syscall.h
+-
+tests/arc4.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/arc4.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/pt-bad-addr.c
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/pt-bad-read.c
+syscall.h
+-
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/pt-big-stk-obj.c
+string.h
+-
+tests/arc4.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/arc4.h
+tests/cksum.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/cksum.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/pt-grow-bad.c
+string.h
+-
+tests/arc4.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/arc4.h
+tests/cksum.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/cksum.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/pt-grow-pusha.c
+string.h
+-
+tests/arc4.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/arc4.h
+tests/cksum.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/cksum.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/pt-grow-stack.c
+string.h
+-
+tests/arc4.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/arc4.h
+tests/cksum.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/cksum.h
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/pt-grow-stk-sc.c
+string.h
+-
+syscall.h
+-
+tests/vm/sample.inc
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/sample.inc
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/pt-write-code-2.c
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/pt-write-code.c
+tests/lib.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/lib.h
+tests/main.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/main.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/qsort.c
+tests/vm/qsort.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/tests/vm/tests/vm/qsort.h
+stdbool.h
+-
+debug.h
+-
+random.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/init.c
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/init.h
+console.h
+-
+debug.h
+-
+inttypes.h
+-
+limits.h
+-
+random.h
+-
+stddef.h
+-
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+devices/kbd.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/devices/kbd.h
+devices/input.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/devices/input.h
+devices/serial.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/devices/serial.h
+devices/shutdown.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/devices/shutdown.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/devices/timer.h
+devices/vga.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/devices/vga.h
+devices/rtc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/devices/rtc.h
+threads/interrupt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/interrupt.h
+threads/io.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/io.h
+threads/loader.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/loader.h
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/malloc.h
+threads/palloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/palloc.h
+threads/pte.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/pte.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/thread.h
+userprog/process.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/userprog/process.h
+userprog/exception.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/userprog/exception.h
+userprog/gdt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/userprog/gdt.h
+userprog/syscall.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/userprog/syscall.h
+userprog/tss.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/userprog/tss.h
+tests/threads/tests.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/tests/threads/tests.h
+devices/block.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/devices/block.h
+devices/ide.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/devices/ide.h
+filesys/filesys.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/filesys/filesys.h
+filesys/fsutil.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/filesys/fsutil.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/interrupt.c
+threads/interrupt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/interrupt.h
+debug.h
+-
+inttypes.h
+-
+stdint.h
+-
+stdio.h
+-
+threads/flags.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/flags.h
+threads/intr-stubs.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/intr-stubs.h
+threads/io.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/io.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/thread.h
+threads/vaddr.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/vaddr.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/devices/timer.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/malloc.c
+threads/malloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/malloc.h
+debug.h
+-
+list.h
+-
+round.h
+-
+stdint.h
+-
+stdio.h
+-
+string.h
+-
+threads/palloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/palloc.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/synch.h
+threads/vaddr.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/vaddr.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/palloc.c
+threads/palloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/palloc.h
+bitmap.h
+-
+debug.h
+-
+inttypes.h
+-
+round.h
+-
+stddef.h
+-
+stdint.h
+-
+stdio.h
+-
+string.h
+-
+threads/loader.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/loader.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/synch.h
+threads/vaddr.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/vaddr.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/synch.c
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/synch.h
+stdio.h
+-
+string.h
+-
+threads/interrupt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/interrupt.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/thread.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/thread.c
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/thread.h
+debug.h
+-
+stddef.h
+-
+random.h
+-
+stdio.h
+-
+string.h
+-
+stdbool.h
+-
+threads/flags.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/flags.h
+threads/interrupt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/interrupt.h
+threads/intr-stubs.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/intr-stubs.h
+threads/palloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/palloc.h
+threads/switch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/switch.h
+threads/synch.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/synch.h
+threads/vaddr.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/threads/vaddr.h
+devices/timer.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/devices/timer.h
+userprog/process.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/threads/userprog/process.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/exception.c
+userprog/exception.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/userprog/exception.h
+inttypes.h
+-
+stdio.h
+-
+userprog/gdt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/userprog/gdt.h
+threads/interrupt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/threads/interrupt.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/threads/thread.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/gdt.c
+userprog/gdt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/userprog/gdt.h
+debug.h
+-
+userprog/tss.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/userprog/tss.h
+threads/palloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/threads/palloc.h
+threads/vaddr.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/threads/vaddr.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/pagedir.c
+userprog/pagedir.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/userprog/pagedir.h
+stdbool.h
+-
+stddef.h
+-
+string.h
+-
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/threads/init.h
+threads/pte.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/threads/pte.h
+threads/palloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/threads/palloc.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/process.c
+userprog/process.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/userprog/process.h
+debug.h
+-
+inttypes.h
+-
+round.h
+-
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+userprog/gdt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/userprog/gdt.h
+userprog/pagedir.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/userprog/pagedir.h
+userprog/tss.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/userprog/tss.h
+filesys/directory.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/filesys/directory.h
+filesys/file.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/filesys/file.h
+filesys/filesys.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/filesys/filesys.h
+threads/flags.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/threads/flags.h
+threads/init.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/threads/init.h
+threads/interrupt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/threads/interrupt.h
+threads/palloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/threads/palloc.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/threads/thread.h
+threads/vaddr.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/threads/vaddr.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/syscall.c
+userprog/syscall.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/userprog/syscall.h
+stdio.h
+-
+syscall-nr.h
+-
+threads/interrupt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/threads/interrupt.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/threads/thread.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/tss.c
+userprog/tss.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/userprog/tss.h
+debug.h
+-
+stddef.h
+-
+userprog/gdt.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/userprog/gdt.h
+threads/thread.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/threads/thread.h
+threads/palloc.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/threads/palloc.h
+threads/vaddr.h
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/userprog/threads/vaddr.h
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/utils/setitimer-helper.c
+errno.h
+-
+limits.h
+-
+math.h
+-
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+sys/time.h
+-
+unistd.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/utils/squish-pty.c
+errno.h
+-
+fcntl.h
+-
+signal.h
+-
+stdarg.h
+-
+stdbool.h
+-
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+stropts.h
+-
+sys/ioctl.h
+-
+sys/stat.h
+-
+sys/time.h
+-
+sys/types.h
+-
+sys/wait.h
+-
+termios.h
+-
+unistd.h
+-
+
+/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/utils/squish-unix.c
+errno.h
+-
+fcntl.h
+-
+signal.h
+-
+stdarg.h
+-
+stdbool.h
+-
+stddef.h
+-
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+stropts.h
+-
+sys/ioctl.h
+-
+sys/stat.h
+-
+sys/time.h
+-
+sys/types.h
+-
+sys/wait.h
+-
+sys/socket.h
+-
+sys/un.h
+-
+termios.h
+-
+unistd.h
+-
+

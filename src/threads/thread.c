@@ -12,6 +12,7 @@
 #include "threads/switch.h"
 #include "threads/synch.h"
 #include "threads/vaddr.h"
+#include "threads/fixed-point.h"
 #include "devices/timer.h"
 #ifdef USERPROG
 #include "userprog/process.h"
@@ -59,6 +60,9 @@ static long long user_ticks;    /* # of timer ticks in user programs. */
 #define TIME_SLICE 4            /* # of timer ticks to give each thread. */
 static unsigned thread_ticks;   /* # of timer ticks since last yield. */
 
+/* BSD Scheduler. */
+static fixed_p load_avg;            /* The system load average. */ 
+
 /* If false (default), use round-robin scheduler.
    If true, use multi-level feedback queue scheduler.
    Controlled by kernel command-line option "-o mlfqs". */
@@ -75,6 +79,9 @@ static void *alloc_frame (struct thread *, size_t size);
 static void schedule (void);
 void thread_schedule_tail (struct thread *prev);
 static tid_t allocate_tid (void);
+static void update_thread_priority (struct thread *, void *aux);
+static void update_thread_recent_cpu (struct thread *, void *aux);
+static fixed_p compute_load_avg (void);
 
 /* Initializes the threading system by transforming the code
    that's currently running into a thread.  This can't work in
@@ -105,6 +112,8 @@ thread_init (void)
   init_thread (initial_thread, "main", PRI_DEFAULT);
   initial_thread->status = THREAD_RUNNING;
   initial_thread->tid = allocate_tid ();
+  initial_thread->nicesness = NICE_DEFAULT;
+  initial_thread->recent_cpu = 0;
 }
 
 /* Starts preemptive thread scheduling by enabling interrupts.
@@ -112,9 +121,13 @@ thread_init (void)
 void
 thread_start (void) 
 {
+  /* Intialize the starting system load avgerage */
+  load_avg = 0;
+
   /* Create the idle thread. */
   struct semaphore idle_started;
   sema_init (&idle_started, 0);
+  //printf("%s\n", thread_current()->name);
   thread_create ("idle", PRI_MIN, idle, &idle_started);
 
   /* Start preemptive thread scheduling. */
@@ -130,6 +143,21 @@ void
 thread_tick (void) 
 {
   struct thread *t = thread_current ();
+
+  /* Updating BSD scheduling variables. */
+  if(thread_mlfqs){
+    if (t != idle_thread){
+      fixed_p fixed_p_1 = int_to_fixed_p (1);
+      t->recent_cpu = t->recent_cpu + fixed_p_1;
+    }
+    if (timer_ticks () % 4 == 0){
+      thread_foreach (update_thread_priority, NULL);
+    }
+    if (timer_ticks () % TIMER_FREQ == 0){
+      load_avg = compute_load_avg ();
+      thread_foreach (update_thread_recent_cpu, NULL);
+    }
+  }
 
   /* Update statistics. */
   if (t == idle_thread)
@@ -189,6 +217,11 @@ thread_create (const char *name, int priority,
   /* Initialize thread. */
   init_thread (t, name, priority);
   tid = t->tid = allocate_tid ();
+
+  /* Initialize BSD Scheduler variables as the parent. */
+  struct thread *parent_thread = thread_current ();
+  t->recent_cpu = parent_thread->recent_cpu;
+  t->nicesness = parent_thread->nicesness;
 
   /* Stack frame for kernel_thread(). */
   kf = alloc_frame (t, sizeof *kf);
@@ -349,7 +382,7 @@ thread_set_priority (int new_priority)
     int oldPriority = thread_get_priority();
     thread_current ()->priority = new_priority;
     if(oldPriority > new_priority){
-	thread_yield();
+	   thread_yield();
     }
   }
 }
@@ -363,33 +396,35 @@ thread_get_priority (void)
 
 /* Sets the current thread's nice value to NICE. */
 void
-thread_set_nice (int nice UNUSED) 
+thread_set_nice (int nice) 
 {
-  /* Not yet implemented. */
+  ASSERT (thread_mlfqs)
+  //ASSERT (nice > NICE_MIN)
+  //ASSERT (nice < NICE_MAX)
+  thread_current ()->nicesness = nice;
+  update_thread_priority (thread_current (), NULL);
+  thread_yield ();
 }
 
 /* Returns the current thread's nice value. */
 int
 thread_get_nice (void) 
 {
-  /* Not yet implemented. */
-  return 0;
+  return thread_current ()->nicesness;
 }
 
 /* Returns 100 times the system load average. */
 int
 thread_get_load_avg (void) 
 {
-  /* Not yet implemented. */
-  return 0;
+  return fixed_p_to_int (load_avg * 100);
 }
 
 /* Returns 100 times the current thread's recent_cpu value. */
 int
 thread_get_recent_cpu (void) 
 {
-  /* Not yet implemented. */
-  return 0;
+  return fixed_p_to_int (thread_current ()->recent_cpu * 100);
 }
 
 /* Idle thread.  Executes when no other thread is ready to run.
@@ -619,6 +654,52 @@ allocate_tid (void)
 
   return tid;
 }
+
+/* Update thread priority as BSD Scheduler */
+static void 
+update_thread_priority (struct thread *t, void *aux UNUSED)
+{
+  // priority = PRI_MAX - (recent_cpu / 4) - (nice * 2),
+  if (t != idle_thread){
+    fixed_p fixed_p_4 = int_to_fixed_p (4);
+    fixed_p fixed_p_recent_cpu_div_4 = fixed_p_divde (t->recent_cpu, fixed_p_4);
+    int recent_cpu_div_4 = fixed_p_to_int (fixed_p_recent_cpu_div_4);
+    t->priority = PRI_MAX - recent_cpu_div_4 - t->nicesness * 2;
+  }
+}
+
+/* Update thread recent CPU as BSD Scheduler */
+static void 
+update_thread_recent_cpu (struct thread *t, void *aux UNUSED)
+{
+  // recent_cpu = (2*load_avg)/(2*load_avg + 1) * recent_cpu + nice
+  if (t != idle_thread){
+    fixed_p fixed_p_1 = int_to_fixed_p (1);
+    fixed_p first_parm = fixed_p_divde (2 * load_avg, 2 * load_avg + fixed_p_1);
+    fixed_p first_term = fixed_p_multiply (first_parm, t->recent_cpu);
+    fixed_p second_term = int_to_fixed_p (t->nicesness);
+    t->recent_cpu = first_term + second_term;
+  }
+}
+
+/* Compute & update the system load average. */
+static fixed_p 
+compute_load_avg ()
+{
+  fixed_p fixed_p_1 = int_to_fixed_p (1);
+  fixed_p fixed_p_59 = int_to_fixed_p (59);
+  fixed_p fixed_p_60 = int_to_fixed_p (60);
+  fixed_p fixed_p_1_div_60 =  fixed_p_divde (fixed_p_1, fixed_p_60);
+  fixed_p fixed_p_59_div_60 =  fixed_p_divde (fixed_p_59, fixed_p_60);
+  int ready_threads = list_size (&ready_list) ;
+  if (thread_current () != idle_thread)
+    ready_threads++;
+  fixed_p fixed_p_ready_threads = int_to_fixed_p (ready_threads);
+  fixed_p first_term = fixed_p_multiply (fixed_p_59_div_60, load_avg);
+  fixed_p second_term = fixed_p_multiply (fixed_p_1_div_60, fixed_p_ready_threads);
+  return first_term + second_term;
+}
+
 
 /* Offset of `stack' member within `struct thread'.
    Used by switch.S, which can't figure it out on its own. */
