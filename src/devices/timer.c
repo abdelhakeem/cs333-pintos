@@ -97,10 +97,10 @@ timer_sleep (int64_t ticks)
   structure->thread = thread_current ();
   structure->activation_time = activation_time;
 
-  intr_disable ();
+  enum intr_level old_level = intr_disable ();
   append_sleeper (structure);
-
   thread_block ();
+  intr_set_level (old_level);
 
   free(structure); // Unblocked at this point
 }
