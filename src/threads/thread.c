@@ -387,8 +387,6 @@ thread_donate_priority (struct thread *donee, struct lock *lock)
   ASSERT (lock != NULL);
   ASSERT (donee == lock->holder);
 
-  thread_current ()->donee_lock = lock;
-
   if (donee->donated_priorities == NULL)
     donee->donated_priorities = dp_table_create ();
 
