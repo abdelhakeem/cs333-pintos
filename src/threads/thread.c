@@ -9,6 +9,7 @@
 #include "threads/interrupt.h"
 #include "threads/intr-stubs.h"
 #include "threads/palloc.h"
+#include "threads/pdonation.h"
 #include "threads/switch.h"
 #include "threads/synch.h"
 #include "threads/vaddr.h"
@@ -373,6 +374,30 @@ thread_foreach (thread_action_func *func, void *aux)
     }
 }
 
+/* Returns the effective priority of thread T (see threads/pdonation.h). */
+int
+thread_get_effective_priority (struct thread *t)
+{
+  int effective_priority = t->priority;
+
+  struct hash *dp_table = t->donated_priorities;
+  if (dp_table != NULL)
+    {
+      int max_donated_priority = dp_table_max_priority (dp_table);
+      if (max_donated_priority > effective_priority)
+        effective_priority = max_donated_priority;
+    }
+
+  return effective_priority;
+}
+
+/* Returns the current thread's effective priority. */
+int
+thread_get_priority (void)
+{
+  return thread_get_effective_priority (thread_current ());
+}
+
 /* Sets the current thread's priority to NEW_PRIORITY. */
 void
 thread_set_priority (int new_priority) 
@@ -387,11 +412,28 @@ thread_set_priority (int new_priority)
   }
 }
 
-/* Returns the current thread's priority. */
-int
-thread_get_priority (void) 
+/* Donates current thread's priority to thread DONEE on LOCK. */
+void
+thread_donate_priority (struct thread *donee, struct lock *lock)
 {
-  return thread_current ()->priority;
+  ASSERT (is_thread (donee));
+  ASSERT (lock != NULL);
+  ASSERT (donee == lock->holder);
+
+  if (donee->donated_priorities == NULL)
+    donee->donated_priorities = dp_table_create ();
+
+  int donated_priority_value = thread_get_priority ();
+  struct hash *dp_table = donee->donated_priorities;
+  struct donated_priority *prev_dp = dp_table_find (dp_table, lock);
+
+  if (prev_dp != NULL)
+    {
+      if (prev_dp->value < donated_priority_value)
+        prev_dp->value = donated_priority_value;
+    }
+  else
+    dp_table_insert (dp_table, lock, donated_priority_value);
 }
 
 /* Sets the current thread's nice value to NICE. */
@@ -593,6 +635,8 @@ thread_schedule_tail (struct thread *prev)
   if (prev != NULL && prev->status == THREAD_DYING && prev != initial_thread) 
     {
       ASSERT (prev != cur);
+      if (prev->donated_priorities != NULL)
+        dp_table_destroy (prev->donated_priorities);
       palloc_free_page (prev);
     }
 }
@@ -721,7 +765,8 @@ bool compereThreadPriority(const struct list_elem *a,
 
     struct thread * t1 = list_entry (a, struct thread, elem);
     struct thread * t2 = list_entry (b, struct thread, elem);
-    return t1->priority < t2->priority;
+    return
+      thread_get_effective_priority (t1) < thread_get_effective_priority (t2);
 }
 
 /* Appends sleeper thread to sleep_list */

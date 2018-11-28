@@ -2,9 +2,11 @@
 #define THREADS_THREAD_H
 
 #include <debug.h>
+#include <hash.h>
 #include <list.h>
 #include <stdint.h>
 #include "threads/fixed-point.h"
+#include "threads/synch.h"
 
 /* States in a thread's life cycle. */
 enum thread_status
@@ -95,6 +97,11 @@ struct thread
     int priority;                       /* Priority. */
     int nicesness;                      /* Niceness.  */
     fixed_p recent_cpu;                 /* CPU time that process has received recently. */
+    struct hash *donated_priorities;    /* Table of donated priorities
+                                           (see threads/pdonation.h). */
+    struct lock* donee_lock;            /* Lock acquired by donee thread
+                                           (i.e.: the one to which this
+                                           thread donated its priority). */
     struct list_elem allelem;           /* List element for all threads list. */
 
     /* Shared between thread.c and synch.c. */
@@ -143,8 +150,10 @@ void thread_yield (void);
 typedef void thread_action_func (struct thread *t, void *aux);
 void thread_foreach (thread_action_func *, void *);
 
+int thread_get_effective_priority (struct thread *);
 int thread_get_priority (void);
 void thread_set_priority (int);
+void thread_donate_priority (struct thread *, struct lock *);
 
 int thread_get_nice (void);
 void thread_set_nice (int);
