@@ -30,6 +30,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "threads/interrupt.h"
+#include "threads/pdonation.h"
 #include "threads/thread.h"
 
 /* Initializes semaphore SEMA to VALUE.  A semaphore is a
@@ -126,10 +127,12 @@ sema_up (struct semaphore *sema)
                                 struct thread, elem));*/
   }
   sema->value++;
+  bool yield = false;
+  if (thread_get_effective_priority (t) > thread_get_priority ())
+    yield = true;
   intr_set_level (old_level);
-  if(t->priority > thread_get_priority()){
-      thread_yield();
-  }
+  if (yield)
+    thread_yield ();
 }
 
 static void sema_test_helper (void *sema_);
@@ -208,8 +211,29 @@ lock_acquire (struct lock *lock)
   ASSERT (!intr_context ());
   ASSERT (!lock_held_by_current_thread (lock));
 
+  struct thread *current = thread_current ();
+  struct thread *holder = lock->holder;
+
+  /* Priority donation logic. */
+  if (holder != NULL
+      && thread_get_effective_priority (holder) < thread_get_priority ())
+    {
+      thread_donate_priority (holder, lock);
+      thread_current ()->donee_lock = lock;
+
+      /* Nested donation. */
+      struct lock *sub_donee_lock = holder->donee_lock;
+      while (sub_donee_lock != NULL)
+        {
+          struct thread *sub_donee = sub_donee_lock->holder;
+          thread_donate_priority (sub_donee, sub_donee_lock);
+          sub_donee_lock = sub_donee->donee_lock;
+        }
+    }
+
   sema_down (&lock->semaphore);
-  lock->holder = thread_current ();
+  lock->holder = current;
+  current->donee_lock = NULL;
 }
 
 /* Tries to acquires LOCK and returns true if successful or false
@@ -245,6 +269,21 @@ lock_release (struct lock *lock)
 
   lock->holder = NULL;
   sema_up (&lock->semaphore);
+
+  /* Remove priority donation attributes in this thread
+     that are associated with LOCK.
+     We have to yield the CPU afterwards to let the scheduler
+     decide which thread to run right now after this thread
+     got rid of one of its donated priorities, which may make
+     it no longer one of the highest-priority threads. */
+  struct hash *dp_table = thread_current ()->donated_priorities;
+  if (dp_table != NULL)
+    {
+      struct donated_priority *found = dp_table_find (dp_table, lock);
+      if (found != NULL)
+        dp_table_delete (dp_table, &found->elem);
+    }
+  thread_yield ();
 }
 
 /* Returns true if the current thread holds LOCK, false
@@ -332,8 +371,8 @@ static bool compereSemThreadPriority(const struct list_elem *a,
   struct list_elem *e2 = list_begin(&s2->semaphore.waiters);
   struct thread *t1 = list_entry (e1, struct thread, elem);
   struct thread *t2 = list_entry (e2, struct thread, elem);
-  return t1->priority < t2->priority;
-
+  return
+    thread_get_effective_priority (t1) < thread_get_effective_priority (t2);
 }
 
 /* If any threads are waiting on COND (protected by LOCK), then
