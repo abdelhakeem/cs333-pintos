@@ -1,3 +1,0 @@
-/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/ayman/University Assignment/3rd year/pintos/cs333-pintos/src/cmake-build-debug/CMakeFiles/src.dir
