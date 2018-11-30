@@ -119,12 +119,8 @@ sema_up (struct semaphore *sema)
     struct list_elem *maxElem = list_max (&sema->waiters, 
                                      compereThreadPriority, NULL);
     list_remove(maxElem);
-    //thread_unblock(list_entry (maxElem,struct thread, elem));
     t = list_entry (maxElem,struct thread, elem);
     thread_unblock(t);
-     
-    /*thread_unblock (list_entry (list_pop_front (&sema->waiters),
-                                struct thread, elem));*/
   }
   sema->value++;
   bool yield = false;
@@ -396,8 +392,6 @@ cond_signal (struct condition *cond, struct lock *lock UNUSED)
                                         compereSemThreadPriority, NULL);
     list_remove(maxElem);
     sema_up (&list_entry (maxElem, struct semaphore_elem, elem)->semaphore);
-    /*sema_up (&list_entry (list_pop_front (&cond->waiters),
-                          struct semaphore_elem, elem)->semaphore);*/
   }
 }
 

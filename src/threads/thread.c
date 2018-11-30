@@ -403,7 +403,6 @@ void
 thread_set_priority (int new_priority) 
 {
   if (!thread_mlfqs) {
-    /* TODO: H: Implement priority donation logic here */
     int oldPriority = thread_get_priority();
     thread_current ()->priority = new_priority;
     if(oldPriority > new_priority){
@@ -651,10 +650,6 @@ thread_schedule_tail (struct thread *prev)
 static void
 schedule (void) 
 {
-  if (thread_mlfqs) {
-    /* TODO: H: Update priorities dynamically here? */
-  }
-
   /* Sleeping logic */
   bool thread_awakened;
   struct sleeping_thread *sleeper;
