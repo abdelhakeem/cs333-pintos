@@ -157,6 +157,21 @@ causing expensive context switches.
 >> B3: How do you ensure that the highest priority thread waiting for
 >> a lock, semaphore, or condition variable wakes up first?
 
+Every thread has an effective address. This effective address has two possible
+values if there is not priority donation, it equals the thread priority.
+else, it equals the maximum priority donated to the thread.
+
+A. In the semaphore, we choose the thread which has the maximum effective 
+priority in the waiting list of the semaphore to wake up.
+
+B. In the lock, the lock is implemented using the semaphore so it works like 
+a semaphore.
+
+c. In the condition variable, every waiter in the condition variable has a 
+semaphore containing one thread(one for each waiter) is waiting to be waked up.
+We compare the effective priority of each thread in waiter list and choose the 
+maximum to wake up.
+ 
 >> B4: Describe the sequence of events when a call to lock_acquire()
 >> causes a priority donation.  How is nested donation handled?
 
@@ -168,6 +183,16 @@ causing expensive context switches.
 >> B6: Describe a potential race in thread_set_priority() and explain
 >> how your implementation avoids it.  Can you use a lock to avoid
 >> this race?
+
+The potential race when the thread wants to change its priority with 
+thread_set_priority() and another thread wants to donate its priority to same
+thread.
+
+We avoid this race by saving the donated priorities in hashTable without change
+the priority of the thread and use the effective address in scheduling.
+
+No, we can't use the lock to avoid this race because the priority donation happened
+in the lock and it is a part of the race.
 
 ---- RATIONALE ----
 
