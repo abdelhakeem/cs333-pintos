@@ -183,6 +183,27 @@ causing expensive context switches.
 >> `struct' member, global or static variable, `typedef', or
 >> enumeration.  Identify the purpose of each in 25 words or less.
 
+Added a fixed-point type to differeniate it from normal integers:
+* Fixed-Point type. */
+typedef int fixed_p;
+
+Added a variable to thread.c to save the system load:
+static fixed_p load_avg;            /* The system load average. */ 
+
+Defined some constants for the niceness:
+/* Thread niceness. */
+#define NICE_MIN -20                       /* Lowest nicesness. */
+#define NICE_DEFAULT 0                  /* Default nicesness. */
+#define NICE_MAX 20                      /* Highest nicesness. */
+
+Added two variables to struct thread.
+One for the niceness of the thread.
+The other for the recent cpu usage.
+int nicesness;                      /* Niceness.  */
+fixed_p recent_cpu;/* CPU time that process has received recently. */
+
+
+
 ---- ALGORITHMS ----
 
 >> C2: Suppose threads A, B, and C have nice values 0, 1, and 2.  Each
@@ -193,23 +214,33 @@ causing expensive context switches.
 timer  recent_cpu    priority   thread
 ticks   A   B   C   A   B   C   to run
 -----  --  --  --  --  --  --   ------
- 0
- 4
- 8
-12
-16
-20
-24
-28
-32
-36
+ 0	0   0   0  63  61  59     A
+ 4      4   0   0  62  61  59     A
+ 8      8   0   0  61  61  59     B
+12	8   4   0  61  60  59     A
+16     12   4   0  60  60  59     B
+20     12   8   0  60  59  59     A
+24     16   8   0  59  59  59     C  
+28     16   8   4  59  59  58     B
+32     16  12   4  59  58  58     A 
+36     20  12   4  58  58  58     C
 
 >> C3: Did any ambiguities in the scheduler specification make values
 >> in the table uncertain?  If so, what rule did you use to resolve
 >> them?  Does this match the behavior of your scheduler?
 
+Yes, There are ambiguities when two threads have the same priority.
+When that happen I use Round-Robin strategy. In other words I let the
+thread that didn't has the CPU for the longest time first.
+Yes, This match the behavior of my scheduler.
+
 >> C4: How is the way you divided the cost of scheduling between code
 >> inside and outside interrupt context likely to affect performance?
+
+We have most of the code inside interrupt context to maintain the 
+statistics of the threads at any time but that cost that comes with it
+is a lot of time with the interrupt disable and that's affect the 
+performance.
 
 ---- RATIONALE ----
 
@@ -218,12 +249,33 @@ ticks   A   B   C   A   B   C   to run
 >> time to work on this part of the project, how might you choose to
 >> refine or improve your design?
 
+Our design have some advantages and disadvantages in it:
+Some advantages :
+- The statistics of the threads at any time because we update it before
+any thread take control of the cpu.
+- We used only one ready queue instead of 64 queues and that's make it 
+easier to use the simple priority scheduler methods in shedule () method
+Some disadvantages :
+- A lot of time is consumed while the interrupts is disabled to update 
+the statistics.
+- To get the number of ready threads we have to run in O(n) where
+n is the number of threads.
+If I have more time I would maintain a variable with the number of ready
+threads instead of compute it every time while computing load_avg.
+ 
+
 >> C6: The assignment explains arithmetic for fixed-point math in
 >> detail, but it leaves it open to you to implement it.  Why did you
 >> decide to implement it the way you did?  If you created an
 >> abstraction layer for fixed-point math, that is, an abstract data
 >> type and/or a set of functions or macros to manipulate fixed-point
 >> numbers, why did you do so?  If not, why not?
+
+I created a fixed-point type and some functions to manipulate the 
+convertion between integer and a fixed-point and the multipication
+and divition of two fixed-point numbers.
+That saved me a lot of headache in using fixed-point and eased the
+devlopment.
 
 			   SURVEY QUESTIONS
 			   ================
