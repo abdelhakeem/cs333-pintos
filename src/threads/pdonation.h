@@ -17,8 +17,9 @@
    A higher-priority thread A of priority H may wait on a lower-priority
    thread B of priority L1 while thread B is waiting on another lower-priority
    thread C of priority L2, where L1 is not necessarily larger than L2.
-   In such cases, the donated priority (H) propagates down the chain of
-   waiting threads until the last thread of priority lower than H.
+   In such cases, the donated priority (H) propagates all down the chain of
+   waiting threads and including the first donee thread (which is not waiting
+   on any locks).
 
    At any time, the "effective priority" of a given thread may be different
    from its original priority. The effective priority of a thread is defined

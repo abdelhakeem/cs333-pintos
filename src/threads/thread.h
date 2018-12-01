@@ -96,16 +96,17 @@ struct thread
     uint8_t *stack;                     /* Saved stack pointer. */
     int priority;                       /* Priority. */
     int nicesness;                      /* Niceness.  */
-    fixed_p recent_cpu;                 /* CPU time that process has received recently. */
-    struct hash *donated_priorities;    /* Table of donated priorities
-                                           (see threads/pdonation.h). */
-    struct lock* donee_lock;            /* Lock acquired by donee thread
-                                           (i.e.: the one to which this
-                                           thread donated its priority). */
+    fixed_p recent_cpu;                 /* CPU time that process has received
+                                           recently. */
     struct list_elem allelem;           /* List element for all threads list. */
 
     /* Shared between thread.c and synch.c. */
     struct list_elem elem;              /* List element. */
+    struct hash *donated_priorities;    /* Table of donated priorities
+                                           (see threads/pdonation.h). */
+
+    /* Owned by synch.c. */
+    struct lock* requested_lock;        /* Lock requested by thread. */
 
 #ifdef USERPROG
     /* Owned by userprog/process.c. */

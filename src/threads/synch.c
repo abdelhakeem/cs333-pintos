@@ -215,21 +215,21 @@ lock_acquire (struct lock *lock)
       && thread_get_effective_priority (holder) < thread_get_priority ())
     {
       thread_donate_priority (holder, lock);
-      thread_current ()->donee_lock = lock;
 
       /* Nested donation. */
-      struct lock *sub_donee_lock = holder->donee_lock;
-      while (sub_donee_lock != NULL)
+      struct lock *sub_requested_lock = holder->requested_lock;
+      while (sub_requested_lock != NULL)
         {
-          struct thread *sub_donee = sub_donee_lock->holder;
-          thread_donate_priority (sub_donee, sub_donee_lock);
-          sub_donee_lock = sub_donee->donee_lock;
+          struct thread *sub_donee = sub_requested_lock->holder;
+          thread_donate_priority (sub_donee, sub_requested_lock);
+          sub_requested_lock = sub_donee->requested_lock;
         }
     }
 
+  current->requested_lock = lock;
   sema_down (&lock->semaphore);
   lock->holder = current;
-  current->donee_lock = NULL;
+  current->requested_lock = NULL;
 }
 
 /* Tries to acquires LOCK and returns true if successful or false
