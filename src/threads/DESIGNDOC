@@ -16,9 +16,13 @@ Mohamed Ismail <mesmail65525@gmail.com>
 >> If you have any preliminary comments on your submission, notes for the
 >> TAs, or extra credit, please give them here.
 
+None.
+
 >> Please cite any offline or online sources you consulted while
 >> preparing your submission, other than the Pintos documentation, course
 >> text, lecture notes, and course staff.
+
+None.
 
 			     ALARM CLOCK
 			     ===========
@@ -148,9 +152,102 @@ causing expensive context switches.
 >> `struct' member, global or static variable, `typedef', or
 >> enumeration.  Identify the purpose of each in 25 words or less.
 
+Added to struct thread:
+
+    /* Members for implementing priority donation. */
+    struct hash *donated_priorities;    /* Table of donated priorities.
+                                           Keeps track of priorities donated
+                                           to thread on its acquired locks.
+                                           Each lock is mapped to the maximum
+                                           priority donated on it so far. */
+    struct lock* requested_lock;        /* Lock requested by thread. */
+
+We keep an entry in the thread's table of donated priorities for each lock
+acquired by the thread, each entry stores a pointer to the acquired lock
+and the value of the highest priority donated to the thread on this lock.
+
+    /* An entry in the table of donated priorities of a thread. */
+    struct donated_priority
+      {
+        struct hash_elem elem;          /* Hash element for donated priorities
+                                           table. */
+        struct lock *acquired_lock;     /* Acquired lock associated with donated
+                                           priority. */
+        int value;                      /* Value of donated priority. */
+      }
+
 >> B2: Explain the data structure used to track priority donation.
 >> Use ASCII art to diagram a nested donation.  (Alternately, submit a
 >> .png file.)
+
+We track priority donation with a hash table mapping the thread's acquired
+locks to the values of maximum priorities donated on them.
+
+For instance, consider the following situation:
+
+- Thread P of priority 1 has Lock A and Lock B
+- Thread Q of priority 2 wants to acquire Lock A
+- Thread R of priority 3 wants to acquire Lock A
+- Thread S of priority 4 wants to acquire Lock B
+
+The donated priorities hash table of Thread P will keep the following values:
+
+/-----------------------\
+| acquired_lock | value |
+|---------------|-------|
+|       A       |   3   |
+|       B       |   4   |
+\-----------------------/
+
+To enable nested donation, each thread stores a pointer to the lock it is
+waiting on (requested_lock). When a thread donates its priority to a lock
+holder, it checks this pointer in the holder's structure, if it finds
+out that it points to a lock, then it donates its priority to the holder of
+this lock and repeats the same process with it until it encounters a thread
+that is not waiting on any lock.
+
+To illustrate nested donaton, consider the following situation:
+
+- Thread P of priority 1 has Lock A
+- Thread Q of priority 1 has Lock B and wants to acquire Lock A
+- Thread R of priority 2 has Lock C and wants to acquire Lock B
+- Thread S of priority 3 wants to acquire Lock C
+
+                                             +-------------+
+                                   +---+     |  THREAD  S  |
+                                   | C |<----| PRIORITY: 3 |
+                                   +---+     +-------------+
+                                     |
+                                     |
+                                     V
+                              +-------------+
+                    +---+     |  THREAD  R  |
+                    | B |<----| PRIORITY: 2 |
+                    +---+     +-------------+
+                      |
+                      |
+                      V
+               +-------------+
+     +---+     |  THREAD  Q  |
+     | A |<----| PRIORITY: 1 |
+     +---+     +-------------+
+       |
+       |
+       V
++-------------+
+|  THREAD  P  |
+| PRIORITY: 1 |
++-------------+
+
+The donated priorities hash tables of donee threads are as follows:
+
+       +---------+                +---------+                +---------+
+      / THREAD  P \              / THREAD  Q \              / THREAD  R \
+/-----------------------\  /-----------------------\  /-----------------------\
+| acquired_lock | value |  | acquired_lock | value |  | acquired_lock | value |
+|---------------|-------|  |---------------|-------|  |---------------|-------|
+|       A       |   3   |  |       B       |   3   |  |       C       |   3   |
+\-----------------------/  \-----------------------/  \-----------------------/
 
 ---- ALGORITHMS ----
 
@@ -175,8 +272,19 @@ maximum to wake up.
 >> B4: Describe the sequence of events when a call to lock_acquire()
 >> causes a priority donation.  How is nested donation handled?
 
+1. Add a new donated_priority entry to the donated priorities table in the
+lock holder structure or update an existing entry
+2. Check if the lock holder is waiting on another lock. If it is, then donate
+the current thread's priority to the holder of that other lock and repeat
+the same step for it
+3. Wait for the lock
+
 >> B5: Describe the sequence of events when lock_release() is called
 >> on a lock that a higher-priority thread is waiting for.
+
+1. Release the lock
+2. Remove corresponding donated_priority entry from donated priorities table
+3. Yield the CPU
 
 ---- SYNCHRONIZATION ----
 
@@ -198,6 +306,8 @@ in the lock and it is a part of the race.
 
 >> B7: Why did you choose this design?  In what ways is it superior to
 >> another design you considered?
+
+Using a hash table to keep track of donated priorities improves performance.
 
 			  ADVANCED SCHEDULER
 			  ==================
