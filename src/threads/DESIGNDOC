@@ -29,26 +29,115 @@ Mohamed Ismail <mesmail65525@gmail.com>
 >> `struct' member, global or static variable, `typedef', or
 >> enumeration.  Identify the purpose of each in 25 words or less.
 
+A. Introduced new sleeping_thread struct to encapsulate sleeper threads'
+in a linked list in addition to having their activation time calculated
+when slept for later activation by the OS.
+
+*thread.h:
+struct sleeping_thread {
+  struct list_elem elem;
+  struct thread *thread;
+  int64_t activation_time;
+};
+
+B. The linked list (sleep_list) of sleeping threads is held in
+thread.c where it is maintained sorted according
+to non-decreasing order of activation_time.
+
+*thread.c:
+/* List of sleeping processes waiting for a time event to unblock them */
+static struct list sleep_list;
+
 ---- ALGORITHMS ----
 
 >> A2: Briefly describe what happens in a call to timer_sleep(),
 >> including the effects of the timer interrupt handler.
 
+A. The starting time (now) of sleeping is noted (start) in number of timer ticks
+by call to the function timer_ticks.
+
+B. Activation time is calculated as (start + ticks). As ticks is the given
+parameter to the timer_sleep function.
+
+C. Heap memory is allocated using malloc for the built structure of
+sleeping_thread that is filled in with this thread's pointer in addition to
+the activation_time just calculated in B.
+
+D. Interrupts are disabled at this point to protect the data and pointers.
+
+E. Old interrupt level is saved on stack.
+
+F. New function append_sleeper takes this created structure and appends it to
+the list of sleeping threads in sleep_list.
+
+G. This thread is blocked only to be activated again after activation_time by the
+scheduler.
+
+H. After return, the thread returns the interrupts scheme back to the old level
+stored on stack in E.
+
+I. The memory allocated for the created sleeping_thread structure is freed manually
+as it is no longer needed. The thread is done with this sleeping session at this point.
+Moreover, the structure is removed from the sleep_list at the time of activation
+by the kernel. 
+
 >> A3: What steps are taken to minimize the amount of time spent in
 >> the timer interrupt handler?
+
+A. As for the busy waiting vs smarter waiting mechanism:
+Whenever the kernel gets to schedule the next thread to run, it checks for
+possibly awakened threads in the sleep_list where time has passed their
+activation time. Thus, it is only a matter of appending the sleeping_thread
+structure to the sorted sleep_list (in order using newly created append_sleeper
+function in thread.c), and merely checking when needed as time passes for
+any awakened threads by the kernel rather than each sleeping thread consuming
+processor and context switching to check for that event by itself, and yielding
+and unyielding the processor unnecessarily causing expensive context switches.
+
+B. As for interrupt disabling time:
+All the calculations for the time and checking the timer ticks are done before
+disabling interrupts for the appending to the sleep_list (on kernel level).
+Additionally, all the memory allocation and building for the sleeping_thread
+structure is done before. Thus, interrupt disabling is done only for appending
+the structure to the sleep_list as this is a critical section that could have
+been interrupted as pointers are manipulated, even by the kernel itself.
 
 ---- SYNCHRONIZATION ----
 
 >> A4: How are race conditions avoided when multiple threads call
 >> timer_sleep() simultaneously?
 
+By disabling interrupts just before appending to the global sleep_list.
+As explained above, interrupt disabling is done only for appending the
+structure to the sleep_list as this is a critical section that could have
+been interrupted as pointers are manipulated, even by the kernel itself.
+
 >> A5: How are race conditions avoided when a timer interrupt occurs
 >> during a call to timer_sleep()?
+
+The timer interrupt during checking for timer ticks will have higher
+priority to change the timer ticks just before or just after reading.
+Race conditions are not prone to occur as this value is merely just looked
+up at this point. In case an interrupt occurs, the interrupt handler will
+take control as interrupts are allowed at this time, and be the only module
+modifying the ticks value.
+Interrupts are also disabled later at the critical section. However, this is
+independent from this issue as it is not considered critical in this scope.
 
 ---- RATIONALE ----
 
 >> A6: Why did you choose this design?  In what ways is it superior to
 >> another design you considered?
+
+This approach completely avoids busy waiting and expensive context switching
+that is unnecessary. Whenever the kernel gets to schedule the next thread to
+run, it checks for possibly awakened threads in the sleep_list where time has
+passed their activation time. Thus, it is only a matter of appending the
+sleeping_thread structure to the sorted sleep_list and merely checking when
+needed as time passes for any awakened threads by the kernel rather than each
+sleeping thread consuming processor and context switching to check for that
+event by itself, and yielding and unyielding the processor unnecessarily
+causing expensive context switches.
 
 			 PRIORITY SCHEDULING
 			 ===================
