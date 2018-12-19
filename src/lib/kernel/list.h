@@ -178,4 +178,12 @@ void list_unique (struct list *, struct list *duplicates,
 struct list_elem *list_max (struct list *, list_less_func *, void *aux);
 struct list_elem *list_min (struct list *, list_less_func *, void *aux);
 
+
+
+/* List node that contains an integer */
+struct list_int_container {
+    int value;
+    struct list_elem elem;
+};
+
 #endif /* lib/kernel/list.h */
