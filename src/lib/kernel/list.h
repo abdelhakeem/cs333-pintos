@@ -186,4 +186,17 @@ struct list_int_container {
     struct list_elem elem;
 };
 
+list_less_func list_int_less;
+
+/* Compares the value of two list_int_container structure elements A and B, given
+   useless auxiliary data AUX.  Returns true if A is less than B, or
+   false if A is greater than or equal to B according their contained integer values. */
+bool list_int_less (const struct list_elem *a,
+                   const struct list_elem *b,
+                   void *aux) {
+    struct list_int_container *containerA = list_entry (a, struct list_int_container, elem);
+    struct list_int_container *containerB = list_entry (b, struct list_int_container, elem);
+    return containerA->value < containerB->value;
+};
+
 #endif /* lib/kernel/list.h */
