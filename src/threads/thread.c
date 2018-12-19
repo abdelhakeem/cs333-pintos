@@ -200,6 +200,7 @@ thread_create (const char *name, int priority,
 
   list_init (&(t->process.children));
   list_init (&(t->process.confirmed_dead_children));
+  list_init (&(t->process.file_descriptors));
 
   /* Add to run queue. */
   thread_unblock (t);
