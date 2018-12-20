@@ -48,15 +48,14 @@ syscall_handler (struct intr_frame *f)
     }
     case SYS_EXEC:  /* Start another process. */
     {
-      //call exec
       printf("exec\n");
+      f->eax = exec (arg1);
       break;
     }
     case SYS_WAIT:  /* Wait for a child process to die. */
     {
       printf("wait\n");
-      wait(arg1);
-      // TODO: H: Push output (return status) to stack
+      f->eax = wait(arg1);
       break;
     }
     case SYS_CREATE:  /* Create a file. */
@@ -113,8 +112,8 @@ syscall_handler (struct intr_frame *f)
     }
       case SYS_CLOSE:  /* Close a file. */
     {
-      //call close
       printf("close\n");
+      close (arg1);
       break;
     }
     /* Project 3 and optionally project 4. */
@@ -177,7 +176,7 @@ halt (void) {
 
 void exit (int status) {
   struct thread* cur = thread_current ();
-    /* Close all open files */
+  /* Close all open files */
   struct list *file_descriptors = &cur->process.file_descriptors;
   while (!list_empty (file_descriptors)) {
     struct list_int_container *container =
@@ -189,35 +188,35 @@ void exit (int status) {
   lock_acquire (&waiting_lock);
   list_int_destroy_all (&cur->process.children);
   struct list *children = &cur->process.children;
-    while (!list_empty (children)) {
-      struct list_int_container *container =
-              list_entry(list_pop_front (children), struct list_int_container, elem);
-      struct process_hash *zombie_searcher = process_lookup (&zombies, container->value);
-      if (zombie_searcher != NULL) {
-        hash_delete (&zombies, &zombie_searcher->elem);
-        free (zombie_searcher);
-      }
-      free (container);
+  while (!list_empty (children)) {
+    struct list_int_container *container =
+            list_entry(list_pop_front (children), struct list_int_container, elem);
+    struct process_hash *zombie_searcher = process_lookup (&zombies, container->value);
+    if (zombie_searcher != NULL) {
+      hash_delete (&zombies, &zombie_searcher->elem);
+      free (zombie_searcher);
     }
-    /* Awake waiting parent if exists */
-    struct process_hash *parent_searcher = process_lookup (&waiting_parents, cur->tid);
-    if (parent_searcher != NULL) {
-      hash_delete (&waiting_parents, &parent_searcher->elem);
-      parent_searcher->status = status;
-      thread_unblock (parent_searcher->t);
-    } else {
-      /* Build zombie_container for hashing into zombies */
-      struct process_hash *zombie_container =
-              (struct process_hash *) malloc (sizeof (struct process_hash));
-      zombie_container->id = cur->tid;
-      zombie_container->key = cur->tid;
-      zombie_container->status = status;
+    free (container);
+  }
+  /* Awake waiting parent if exists */
+  struct process_hash *parent_searcher = process_lookup (&waiting_parents, cur->tid);
+  if (parent_searcher != NULL) {
+    hash_delete (&waiting_parents, &parent_searcher->elem);
+    parent_searcher->status = status;
+    thread_unblock (parent_searcher->t);
+  } else {
+    /* Build zombie_container for hashing into zombies */
+    struct process_hash *zombie_container =
+            (struct process_hash *) malloc (sizeof (struct process_hash));
+    zombie_container->id = cur->tid;
+    zombie_container->key = cur->tid;
+    zombie_container->status = status;
 
-      hash_insert (&zombies, &zombie_container->elem);
-    }
-    lock_release (&waiting_lock);
+    hash_insert (&zombies, &zombie_container->elem);
+  }
+  lock_release (&waiting_lock);
 
-    list_int_destroy_all (&cur->process.confirmed_dead_children);
+  list_int_destroy_all (&cur->process.confirmed_dead_children);
 }
 
 int wait (pid_t pid) {
@@ -261,8 +260,12 @@ int wait (pid_t pid) {
   return status;
 }
 
+pid_t exec (const char *cmd_line) {
+  // TODO: H: Parse command line here, Abdelhakeem
+  return process_execute (cmd_line);
+}
 
 void close (int fd) {
-  // TODO: H: Implement this.
+  // TODO: H: Implement this, Ayman
   printf("H says you should close file descriptor %d", fd);
 }
