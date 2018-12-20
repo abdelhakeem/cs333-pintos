@@ -4,7 +4,9 @@
 #include <list.h>
 #include <hash.h>
 
-typedef int tid_t;
+#include "threads/thread.h"
+
+//typedef int tid_t;
 
 /* Process data */
 struct process_data {
