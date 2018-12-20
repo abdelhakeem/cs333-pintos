@@ -4,6 +4,8 @@
 #include "threads/interrupt.h"
 #include "threads/thread.h"
 #include "devices/shutdown.h"
+#include "threads/synch.h"
+#include "process.h"
 
 static void syscall_handler (struct intr_frame *);
 
@@ -12,6 +14,10 @@ void
 syscall_init (void) 
 {
   intr_register_int (0x30, 3, INTR_ON, syscall_handler, "syscall");
+
+  lock_init (&waiting_lock);
+  hash_init (&zombies, process_hash_func, process_hash_less, NULL);
+  hash_init (&waiting_parents, process_hash_func, process_hash_less, NULL);
 }
 
 static void
@@ -31,7 +37,7 @@ syscall_handler (struct intr_frame *f)
     case SYS_HALT:  /* Halt the operating system. */
     {
       printf("halt\n");
-      halt();
+      halt ();
       break;
     }
     case SYS_EXIT:  /* Terminate this process. */
@@ -48,8 +54,9 @@ syscall_handler (struct intr_frame *f)
     }
     case SYS_WAIT:  /* Wait for a child process to die. */
     {
-      //call wait
       printf("wait\n");
+      wait(arg1);
+      // TODO: H: Push output (return status) to stack
       break;
     }
     case SYS_CREATE:  /* Create a file. */
@@ -165,5 +172,39 @@ syscall_handler (struct intr_frame *f)
 
 void
 halt (void) {
-    shutdown_power_off ();
+  shutdown_power_off ();
+}
+
+int wait (pid_t pid) {
+  struct thread* parent = thread_current ();
+  int status = -1;
+  if(!list_int_contains (&parent->process.children, pid)) {
+    return -1; // Not a child
+  }
+
+  lock_acquire (&waiting_lock);
+  struct process_hash *searcher = process_lookup (&zombies, key);
+  if (searcher != NULL) { // Child is zombie
+    hash_delete (&zombies, &searcher->elem);
+    status = searcher->status;
+    free (searcher);
+    lock_release (&waiting_lock);
+    return status;
+  } else {
+    /* Build parent_container for hashing into waiting_parents */
+    struct process_hash *parent_container =
+            (struct process_hash *) malloc (sizeof (struct process_hash));
+    parent_container->id = parent->tid;
+    parent_container->key = pid;
+    parent_container->t = parent;
+
+    hash_insert (&waiting_parents, parent_container->elem);
+    lock_release (&waiting_lock);
+
+    thread_block (parent);
+    /* Awaken by child here */
+    status = parent_container->status; // Updated by child
+    free(parent_container);
+    return status;
+  }
 }

@@ -23,6 +23,7 @@ struct process_hash {
     int key;                        /* Key for finding this process */
 
     tid_t id;                       /* Identifier. */
+    int status;
     struct thread *t;               /* Pointer to thread if exists */
 };
 /* Hashing function for process_hash structure */
