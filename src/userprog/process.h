@@ -4,9 +4,7 @@
 #include <list.h>
 #include <hash.h>
 
-#include "threads/thread.h"
-
-//typedef int tid_t;
+typedef int tid_t;
 
 /* Process data */
 struct process_data {
@@ -32,6 +30,8 @@ unsigned process_hash_func (const struct hash_elem *, void *);
 /* Comparator function for hash_struct that returns true if a precedes b */
 bool process_hash_less (const struct hash_elem *,
                                  const struct hash_elem *, void *);
+/* Looks up the table for the hashed element */
+struct process_hash * process_lookup (struct hash *table, int key);
 
 tid_t process_execute (const char *file_name);
 int process_wait (tid_t);
