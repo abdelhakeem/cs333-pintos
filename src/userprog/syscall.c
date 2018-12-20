@@ -1,12 +1,12 @@
 #include "userprog/syscall.h"
 #include <stdio.h>
-#include <stdlib.h>
 #include <syscall-nr.h>
 #include "threads/interrupt.h"
 #include "threads/thread.h"
 #include "devices/shutdown.h"
 #include "threads/synch.h"
 #include "process.h"
+#include "threads/malloc.h"
 
 static void syscall_handler (struct intr_frame *);
 
