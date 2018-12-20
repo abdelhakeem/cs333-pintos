@@ -1,5 +1,6 @@
 #include "userprog/syscall.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <syscall-nr.h>
 #include "threads/interrupt.h"
 #include "threads/thread.h"
@@ -175,7 +176,48 @@ halt (void) {
 }
 
 void exit (int status) {
+  struct thread* cur = thread_current ();
+    /* Close all open files */
+  struct list *file_descriptors = &cur->process.file_descriptors;
+  while (!list_empty (file_descriptors)) {
+    struct list_int_container *container =
+            list_entry(list_pop_front (file_descriptors), struct list_int_container, elem);
+    close (container->value);
+    free (container);
+  }
+  /* Kill zombie children */
+  lock_acquire (&waiting_lock);
+  list_int_destroy_all (&cur->process.children);
+  struct list *children = &cur->process.children;
+    while (!list_empty (children)) {
+      struct list_int_container *container =
+              list_entry(list_pop_front (children), struct list_int_container, elem);
+      struct process_hash *zombie_searcher = process_lookup (&zombies, container->value);
+      if (zombie_searcher != NULL) {
+        hash_delete (&zombies, &zombie_searcher->elem);
+        free (zombie_searcher);
+      }
+      free (container);
+    }
+    /* Awake waiting parent if exists */
+    struct process_hash *parent_searcher = process_lookup (&waiting_parents, cur->tid);
+    if (parent_searcher != NULL) {
+      hash_delete (&waiting_parents, &parent_searcher->elem);
+      parent_searcher->status = status;
+      thread_unblock (parent_searcher->t);
+    } else {
+      /* Build zombie_container for hashing into zombies */
+      struct process_hash *zombie_container =
+              (struct process_hash *) malloc (sizeof (struct process_hash));
+      zombie_container->id = cur->tid;
+      zombie_container->key = cur->tid;
+      zombie_container->status = status;
 
+      hash_insert (&zombies, &zombie_container->elem);
+    }
+    lock_release (&waiting_lock);
+
+    list_int_destroy_all (&cur->process.confirmed_dead_children);
 }
 
 int wait (pid_t pid) {
@@ -212,9 +254,15 @@ int wait (pid_t pid) {
     free(parent_container);
   }
   struct list_int_container *death_log_container =
-          (struct process_hash *) malloc (sizeof (struct list_int_container));
+          (struct list_int_container *) malloc (sizeof (struct list_int_container));
   death_log_container->value = pid;
 
-  list_push_back (&parent->process.confirmed_dead_children, &death_log_container->elem);
+  list_push_front (&parent->process.confirmed_dead_children, &death_log_container->elem);
   return status;
+}
+
+
+void close (int fd) {
+  // TODO: H: Implement this.
+  printf("H says you should close file descriptor %d", fd);
 }
