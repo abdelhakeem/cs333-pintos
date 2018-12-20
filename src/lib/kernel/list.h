@@ -188,4 +188,6 @@ struct list_int_container {
 
 list_less_func list_int_less;
 
+bool list_int_contains (struct list *, int value);
+
 #endif /* lib/kernel/list.h */

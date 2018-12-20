@@ -534,3 +534,12 @@ bool list_int_less (const struct list_elem *a,
   struct list_int_container *containerB = list_entry (b, struct list_int_container, elem);
   return containerA->value < containerB->value;
 };
+
+bool list_int_contains (struct list *list, int value) {
+  struct list_elem *iterator = list_begin (list);
+  while (iterator != NULL) {
+    if (list_entry (iterator, struct list_int_container, elem)->value == value)
+      return true;
+  }
+  return false;
+}
