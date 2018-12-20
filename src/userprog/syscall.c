@@ -42,9 +42,8 @@ syscall_handler (struct intr_frame *f)
     }
     case SYS_EXIT:  /* Terminate this process. */
     {
-      //call exit
       printf("exit\n");
-      break;
+      exit (arg1);
     }
     case SYS_EXEC:  /* Start another process. */
     {
@@ -175,11 +174,18 @@ halt (void) {
   shutdown_power_off ();
 }
 
+void exit (int status) {
+
+}
+
 int wait (pid_t pid) {
   struct thread* parent = thread_current ();
   int status = -1;
   if(!list_int_contains (&parent->process.children, pid)) {
     return -1; // Not a child
+  }
+  if (!list_int_contains (&parent->process.confirmed_dead_children, pid)) {
+    return -1; // Confirmed dead
   }
 
   lock_acquire (&waiting_lock);
@@ -189,7 +195,6 @@ int wait (pid_t pid) {
     status = searcher->status;
     free (searcher);
     lock_release (&waiting_lock);
-    return status;
   } else {
     /* Build parent_container for hashing into waiting_parents */
     struct process_hash *parent_container =
@@ -205,6 +210,11 @@ int wait (pid_t pid) {
     /* Awaken by child here */
     status = parent_container->status; // Updated by child
     free(parent_container);
-    return status;
   }
+  struct list_int_container *death_log_container =
+          (struct process_hash *) malloc (sizeof (struct list_int_container));
+  death_log_container->value = pid;
+
+  list_push_back (&parent->process.confirmed_dead_children, &death_log_container->elem);
+  return status;
 }
