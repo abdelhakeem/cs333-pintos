@@ -543,3 +543,9 @@ bool list_int_contains (struct list *list, int value) {
   }
   return false;
 }
+
+void list_int_destroy_all (struct list *list) {
+  while (! list_empty (list)) {
+    free (list_entry (list_pop_front (list), struct list_int_container, elem));
+  }
+}
