@@ -3,7 +3,7 @@
 
 #include <list.h>
 
-#include "threads/thread.h"
+typedef int tid_t;
 
 /* Process data */
 struct process_data {
