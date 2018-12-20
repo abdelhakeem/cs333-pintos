@@ -3,6 +3,9 @@
 
 #include "threads/thread.h"
 
+/* Process identifier. */
+typedef int pid_t;
+
 void syscall_init (void);
 
 /* Process-related system calls */

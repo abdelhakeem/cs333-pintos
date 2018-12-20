@@ -3,9 +3,10 @@
 #include <syscall-nr.h>
 #include "threads/interrupt.h"
 #include "threads/thread.h"
-
+#include "devices/shutdown.h"
 
 static void syscall_handler (struct intr_frame *);
+
 
 void
 syscall_init (void) 
@@ -29,8 +30,8 @@ syscall_handler (struct intr_frame *f)
   {
     case SYS_HALT:  /* Halt the operating system. */
     {
-      //call halt
       printf("halt\n");
+      halt();
       break;
     }
     case SYS_EXIT:  /* Terminate this process. */
@@ -160,4 +161,9 @@ syscall_handler (struct intr_frame *f)
   }
   printf ("system call!\n");
   thread_exit ();
+}
+
+void
+halt (void) {
+    shutdown_power_off ();
 }
