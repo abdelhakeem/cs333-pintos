@@ -183,7 +183,7 @@ int wait (pid_t pid) {
   }
 
   lock_acquire (&waiting_lock);
-  struct process_hash *searcher = process_lookup (&zombies, key);
+  struct process_hash *searcher = process_lookup (&zombies, pid);
   if (searcher != NULL) { // Child is zombie
     hash_delete (&zombies, &searcher->elem);
     status = searcher->status;
@@ -198,10 +198,10 @@ int wait (pid_t pid) {
     parent_container->key = pid;
     parent_container->t = parent;
 
-    hash_insert (&waiting_parents, parent_container->elem);
+    hash_insert (&waiting_parents, &parent_container->elem);
     lock_release (&waiting_lock);
 
-    thread_block (parent);
+    thread_block ();
     /* Awaken by child here */
     status = parent_container->status; // Updated by child
     free(parent_container);
