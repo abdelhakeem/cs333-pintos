@@ -2,11 +2,19 @@
 #define USERPROG_SYSCALL_H
 
 #include "threads/thread.h"
+#include "threads/synch.h"
 
 /* Process identifier. */
 typedef int pid_t;
 
 void syscall_init (void);
+
+/* Mutex lock for zombies */
+struct lock waiting_lock;
+/* Key: Zombie process */
+struct hash zombies;
+/* Key: Waited upon child */
+struct hash waiting_parents;
 
 /* Process-related system calls */
 
