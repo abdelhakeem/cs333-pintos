@@ -10,7 +10,8 @@ typedef int tid_t;
 struct process_data {
     struct list children;                   /* Direct children of the process */
     struct list confirmed_dead_children;    /* Children waited upon and confirmed dead */
-    struct list file_descriptors;           /* File descriptors acquired from kernel */
+    struct hash file_descriptors;           /* File descriptors acquired from kernel */
+    int next_file_fd = 2;
 };
 
 

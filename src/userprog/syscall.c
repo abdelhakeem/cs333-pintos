@@ -1,19 +1,56 @@
 #include "userprog/syscall.h"
 #include <stdio.h>
+#include <hash.h>
 #include <syscall-nr.h>
 #include "threads/interrupt.h"
 #include "threads/thread.h"
-#include "devices/shutdown.h"
 #include "threads/synch.h"
-#include "process.h"
+#include "threads/vaddr.h"
 #include "threads/malloc.h"
+#include "devices/shutdown.h"
+#include "filesys/filesys.h"
+#include "filesys/file.h"
+#include "process.h"
+
 
 static void syscall_handler (struct intr_frame *);
+static int generate_fd (struct file *);
+static struct file * translate_fd (int fd);
+static void remove_fd (int fd);
+static bool check_n_user_bytes(void *, int n);
+static bool check_user_name (const char *);
 
+static struct lock files_lock;
+
+/* Reads a byte at user virtual address UADDR.
+   UADDR must be below PHYS_BASE.
+   Returns the byte value if successful, -1 if a segfault
+   occurred. */
+static int
+get_user (const uint8_t *uaddr)
+{
+  int result;
+  asm ("movl $1f, %0; movzbl %1, %0; 1:"
+       : "=&a" (result) : "m" (*uaddr));
+  return result;
+}
+ 
+/* Writes BYTE to user address UDST.
+   UDST must be below PHYS_BASE.
+   Returns true if successful, false if a segfault occurred. */
+static bool
+put_user (uint8_t *udst, uint8_t byte)
+{
+  int error_code;
+  asm ("movl $1f, %0; movb %b2, %1; 1:"
+       : "=&a" (error_code), "=m" (*udst) : "q" (byte));
+  return error_code != -1;
+}
 
 void
 syscall_init (void) 
 {
+  lock_init (&files_lock);
   intr_register_int (0x30, 3, INTR_ON, syscall_handler, "syscall");
 
   lock_init (&waiting_lock);
@@ -60,60 +97,112 @@ syscall_handler (struct intr_frame *f)
     }
     case SYS_CREATE:  /* Create a file. */
     {
-      //call create
-      printf("create\n");
+      lock_acquire (&files_lock);
+      if (!check_user_name (arg1)) 
+        {
+          lock_release (&files_lock);
+          break;
+        }
+      f->eax = filesys_create ((const char *) arg1, (off_t) arg2);
+      lock_release (&files_lock);
       break;
     }
     case SYS_REMOVE:  /* Delete a file. */
     {
-      //call remove
-      printf("remove\n");
+      lock_acquire (&files_lock);
+      if (!check_user_name (arg1)) 
+        {
+          lock_release (&files_lock);
+          break;
+        }
+      f->eax = filesys_remove ((const char *) arg1);
+      lock_release (&files_lock);
       break;
     }
     case SYS_OPEN:  /* Open a file. */
     {
-      //call open
-      printf("open\n");
+      lock_acquire (&files_lock);
+      if (!check_user_name (arg1)) 
+        {
+          lock_release (&files_lock);
+          break;
+        }
+      f->eax = generate_fd (filesys_open ((const char *) arg1));
+      lock_release (&files_lock);
       break;
     }
     case SYS_FILESIZE:  /* Obtain a file's size. */
     {
-      //call fileSize
-      printf("fileSize\n");
+      lock_acquire (&files_lock);
+      f->eax = file_length (translate_fd (arg1));
+      lock_release (&files_lock);
       break;
     }
     case SYS_READ:  /* Read from a file. */
     {
-      //call read
-      printf("read\n");
+      lock_acquire (&files_lock);
+      if (!check_n_user_bytes(arg2, arg3))
+        {
+          lock_release (&files_lock);
+          break;
+        }
+      if(arg1 == 0) {
+        unsigned i;
+        for (i = 0;i < arg3;i++)
+          arg2[i] = input_getc ();
+      }
+      else
+      {
+        struct file *file = translate_fd (arg1);
+        if (file == NULL)
+          f->eax = -1;
+        else
+          f->eax = file_read (file, arg2, arg3);
+      }
+      lock_release (&files_lock);
       break;
     }
     case SYS_WRITE:  /* Write to a file. */
     {
-      //call write
+      lock_acquire (&files_lock);
+      if (!check_n_user_bytes(arg2, arg3))
+        {
+          lock_release (&files_lock);
+          break;
+        }
       if(arg1 == 1)
+        putbuf (arg2,arg3);
+      else
       {
-        putbuf(arg2,arg3);
+        struct file *file = translate_fd (arg1);
+        if (file == NULL)
+          f->eax = -1;
+        else
+          f->eax = file_write (file, arg2, arg3);
       }
-      printf("write\n");
+      lock_release (&files_lock);
       break;
     }
     case SYS_SEEK:  /* Change position in a file. */
     {
-      //call seek
-      printf("seek\n");
+      lock_acquire (&files_lock);
+      file_seek (translate_fd (arg1), arg2);
+      lock_release (&files_lock);
       break;
     }
     case SYS_TELL:  /* Report current position in a file. */
     {
-      //call tell
-      printf("tell\n");
+      lock_acquire (&files_lock);
+      file_tell (translate_fd (arg1));
+      lock_release (&files_lock);
       break;
     }
       case SYS_CLOSE:  /* Close a file. */
     {
-      printf("close\n");
-      close (arg1);
+      lock_acquire (&files_lock);
+      file_close (translate_fd (arg1));
+      remove_fd (arg1);
+      lock_release (&files_lock);
       break;
     }
     /* Project 3 and optionally project 4. */
@@ -167,6 +256,63 @@ syscall_handler (struct intr_frame *f)
   }
   printf ("system call!\n");
   thread_exit ();
+}
+
+int 
+generate_fd (struct file *file) {
+  if (file == NULL)
+    return -1;
+  struct thread* cur = thread_current ();
+  struct file_desc* file_desc = (struct file_desc*) malloc (sizeof (struct file_desc));
+  file_desc->fd = &cur->process.next_file_fd;
+  file_desc->file = file;
+  hash_insert (&cur->process.file_descriptors, &file_desc->hash_elem);
+  return &cur->process.next_file_fd++;
+}
+
+static struct file * 
+translate_fd (int fd) {
+  struct file_desc p;
+  struct hash_elem *e;
+  p.fd = fd;
+  e = hash_find (&cur->process.file_descriptors, &p.hash_elem);
+  return e != NULL ? hash_entry (e, struct file_desc, hash_elem) : NULL;
+}
+
+void
+remove_fd (int fd) {
+  struct file_desc p;
+  p.fd = fd;
+  hash_delete (&cur->process.file_descriptors, &p.hash_elem);
+}
+
+bool 
+check_n_user_bytes (void * location, int n) {
+  if (location <= 0 || location + n > PHYS_BASE)
+    return false;
+  int i;
+  for (i = 0;i < n; i++)
+    if (get_user () == -1)
+      return false;
+  return true;
+}
+
+bool 
+check_user_name (const char * name) {
+  if (name <= 0 || name >= PHYS_BASE)
+    return false;
+  int i = 0;
+  while (true) 
+    {
+      if (name + i >= PHYS_BASE)
+        return false;
+      if (get_user () == -1)
+        return false;
+      else if (get_user () == 0)
+        break;
+      i++;
+    }
+  return true;
 }
 
 void
