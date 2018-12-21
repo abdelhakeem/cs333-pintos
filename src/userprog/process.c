@@ -1,6 +1,7 @@
 #include "userprog/process.h"
 #include <debug.h>
 #include <inttypes.h>
+#include <list.h>
 #include <round.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,45 +15,58 @@
 #include "threads/flags.h"
 #include "threads/init.h"
 #include "threads/interrupt.h"
+#include "threads/malloc.h"
 #include "threads/palloc.h"
 #include "threads/thread.h"
 #include "threads/vaddr.h"
+
+/* Whitespace characters, used as delimiters when parsing command-line
+   arguments: space (0x20), form feed (0x0c), line feed (0x0a),
+   carriage return (0x0d), horizontal tab (0x09), vertical tab (0x0b). */
+#define WHITESPACE_DELIM "\x20\x0c\x0a\x0d\x09\x0b"
 
 static thread_func start_process NO_RETURN;
 static bool load (const char *cmdline, void (**eip) (void), void **esp);
 
 /* Starts a new thread running a user program loaded from
-   FILENAME.  The new thread may be scheduled (and may even exit)
+   the file named in the command-line string CMD_STR.
+   The new thread may be scheduled (and may even exit)
    before process_execute() returns.  Returns the new process's
    thread id, or TID_ERROR if the thread cannot be created. */
 tid_t
-process_execute (const char *file_name) 
+process_execute (const char *cmd_str) 
 {
-  char *fn_copy;
+  char *cmdstr_copy;
   tid_t tid;
 
-  /* Make a copy of FILE_NAME.
+  /* Make a copy of CMD_STR.
      Otherwise there's a race between the caller and load(). */
-  fn_copy = palloc_get_page (0);
-  if (fn_copy == NULL)
+  cmdstr_copy = palloc_get_page (0);
+  if (cmdstr_copy == NULL)
     return TID_ERROR;
-  strlcpy (fn_copy, file_name, PGSIZE);
+  strlcpy (cmdstr_copy, cmd_str, PGSIZE);
 
-  /* Create a new thread to execute FILE_NAME. */
-  tid = thread_create (file_name, PRI_DEFAULT, start_process, fn_copy);
+  /* Create a new thread to execute CMD_STR. */
+  tid = thread_create (cmd_str, PRI_DEFAULT, start_process, cmdstr_copy);
   if (tid == TID_ERROR)
-    palloc_free_page (fn_copy); 
+    palloc_free_page (cmdstr_copy); 
   return tid;
 }
 
 /* A thread function that loads a user process and starts it
    running. */
 static void
-start_process (void *file_name_)
+start_process (void *cmd_str_)
 {
-  char *file_name = file_name_;
+  char *cmd_str = cmd_str_;
+  char *save_ptr, *file_name, *arg;
+  struct list list_argv;
+  int argc = 0;
   struct intr_frame if_;
   bool success;
+
+  /* Extract file name from command-line string. */
+  file_name = strtok_r (cmd_str, WHITESPACE_DELIM, &save_ptr);
 
   /* Initialize interrupt frame and load executable. */
   memset (&if_, 0, sizeof if_);
@@ -62,9 +76,61 @@ start_process (void *file_name_)
   success = load (file_name, &if_.eip, &if_.esp);
 
   /* If load failed, quit. */
-  palloc_free_page (file_name);
   if (!success) 
-    thread_exit ();
+    {
+      palloc_free_page (file_name);
+      thread_exit ();
+    }
+
+  /* Push command-line argument strings on the stack. */
+  list_init (&list_argv);
+  for (arg = file_name;
+       arg != NULL;
+       arg = strtok_r (NULL, WHITESPACE_DELIM, &save_ptr), ++argc)
+    {
+      size_t offset = strlen (arg) + 1;
+      if_.esp = if_.esp - offset;
+      strlcpy ((char *) if_.esp, arg, offset);
+
+      /* Store argument pointer. */
+      struct list_int_container *argv_current = malloc (sizeof *argv_current);
+      argv_current->value = (uint32_t) if_.esp;
+      list_push_back (&list_argv, &argv_current->elem);
+    }
+  palloc_free_page (file_name);
+
+  /* Word-align stack pointer for best performance. */
+  while ((uint32_t) if_.esp & 0x00000003)
+    {
+      if_.esp = if_.esp - 1;
+      *((uint8_t *) if_.esp) = 0;
+    }
+
+  /* Push null pointer followed by pointers to command-line argument
+     strings on the stack. */
+  if_.esp = if_.esp - sizeof (char *);
+  *((char **) if_.esp) = (char *) 0;
+  while (!list_empty (&list_argv))
+    {
+      struct list_elem *e = list_pop_back (&list_argv);
+      struct list_int_container *argv_current
+        = list_entry (e, struct list_int_container, elem);
+      if_.esp = if_.esp - sizeof (char *);
+      *((char **) if_.esp) = (char *) argv_current->value;
+      free (argv_current);
+    }
+
+  /* Push ARGV and ARGC on the stack. */
+  if_.esp = if_.esp - sizeof (char **);
+  *((char ***) if_.esp) = (char **) (if_.esp + sizeof (char **));
+  if_.esp = if_.esp - sizeof argc;
+  *((int *) if_.esp) = argc;
+
+  /* Push dummy return address on the stack. */
+  if_.esp = if_.esp - sizeof (uint32_t);
+  *((uint32_t *) if_.esp) = 0;
+
+  hex_dump (if_.esp, if_.esp, 360, true);
 
   /* Start the user process by simulating a return from an
      interrupt, implemented by intr_exit (in
@@ -438,8 +504,7 @@ setup_stack (void **esp)
     {
       success = install_page (((uint8_t *) PHYS_BASE) - PGSIZE, kpage, true);
       if (success)
-				//*esp = PHYS_BASE;
-        *esp = PHYS_BASE - 12;
+        *esp = PHYS_BASE;
       else
         palloc_free_page (kpage);
     }
