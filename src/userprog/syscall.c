@@ -68,7 +68,7 @@ syscall_handler (struct intr_frame *f)
   int arg1 = esp[1];
   int arg2 = esp[2];
   int arg3 = esp[3];
-  printf("%08x\n%08x\n%08x\n%08x\n",sys_call_type,arg1,arg2,arg3);
+  //printf("%08x\n%08x\n%08x\n%08x\n",sys_call_type,arg1,arg2,arg3);
   
   switch (sys_call_type)
   {
