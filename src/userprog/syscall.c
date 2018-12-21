@@ -74,24 +74,24 @@ syscall_handler (struct intr_frame *f)
   {
     case SYS_HALT:  /* Halt the operating system. */
     {
-      printf("halt\n");
+      //printf("halt\n");
       halt ();
       break;
     }
     case SYS_EXIT:  /* Terminate this process. */
     {
-      printf("exit\n");
+      //printf("exit\n");
       exit (arg1);
     }
     case SYS_EXEC:  /* Start another process. */
     {
-      printf("exec\n");
+      //printf("exec\n");
       f->eax = exec (arg1);
       break;
     }
     case SYS_WAIT:  /* Wait for a child process to die. */
     {
-      printf("wait\n");
+      //printf("wait\n");
       f->eax = wait(arg1);
       break;
     }
@@ -254,8 +254,8 @@ syscall_handler (struct intr_frame *f)
       PANIC("unKnown system call 04%x\n",sys_call_type);
     }
   }
-  printf ("system call!\n");
-  thread_exit ();
+  //printf ("system call!\n");
+  //thread_exit ();
 }
 
 int 
