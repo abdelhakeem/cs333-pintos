@@ -130,8 +130,6 @@ start_process (void *cmd_str_)
   if_.esp = if_.esp - sizeof (uint32_t);
   *((uint32_t *) if_.esp) = 0;
 
-  hex_dump (if_.esp, if_.esp, 360, true);
-
   /* Start the user process by simulating a return from an
      interrupt, implemented by intr_exit (in
      threads/intr-stubs.S).  Because intr_exit takes all of its
