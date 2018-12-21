@@ -5,6 +5,7 @@
 #include "threads/interrupt.h"
 #include "threads/thread.h"
 #include "threads/synch.h"
+#include "threads/vaddr.h"
 #include "devices/shutdown.h"
 #include "filesys/filesys.h"
 #include "filesys/file.h"
@@ -13,8 +14,35 @@ static void syscall_handler (struct intr_frame *);
 static int generate_fd (struct file *);
 static struct file * translate_fd (int fd);
 static void remove_fd (int fd);
+static bool check_n_user_bytes(void *, int n);
+static bool check_user_name (const char *);
 
 static struct lock files_lock;
+
+/* Reads a byte at user virtual address UADDR.
+   UADDR must be below PHYS_BASE.
+   Returns the byte value if successful, -1 if a segfault
+   occurred. */
+static int
+get_user (const uint8_t *uaddr)
+{
+  int result;
+  asm ("movl $1f, %0; movzbl %1, %0; 1:"
+       : "=&a" (result) : "m" (*uaddr));
+  return result;
+}
+ 
+/* Writes BYTE to user address UDST.
+   UDST must be below PHYS_BASE.
+   Returns true if successful, false if a segfault occurred. */
+static bool
+put_user (uint8_t *udst, uint8_t byte)
+{
+  int error_code;
+  asm ("movl $1f, %0; movb %b2, %1; 1:"
+       : "=&a" (error_code), "=m" (*udst) : "q" (byte));
+  return error_code != -1;
+}
 
 void
 syscall_init (void) 
@@ -63,24 +91,36 @@ syscall_handler (struct intr_frame *f)
     }
     case SYS_CREATE:  /* Create a file. */
     {
-      // Todo: Check for const char *file in arg1
       lock_acquire (&files_lock);
+      if (!check_user_name (arg1)) 
+        {
+          lock_release (&files_lock);
+          break;
+        }
       f->eax = filesys_create ((const char *) arg1, (off_t) arg2);
       lock_release (&files_lock);
       break;
     }
     case SYS_REMOVE:  /* Delete a file. */
     {
-      // Todo: Check for const char *file in arg1
       lock_acquire (&files_lock);
+      if (!check_user_name (arg1)) 
+        {
+          lock_release (&files_lock);
+          break;
+        }
       f->eax = filesys_remove ((const char *) arg1);
       lock_release (&files_lock);
       break;
     }
     case SYS_OPEN:  /* Open a file. */
     {
-      // Todo: Check for const char *file in arg1
       lock_acquire (&files_lock);
+      if (!check_user_name (arg1)) 
+        {
+          lock_release (&files_lock);
+          break;
+        }
       f->eax = generate_fd (filesys_open ((const char *) arg1));
       lock_release (&files_lock);
       break;
@@ -95,9 +135,16 @@ syscall_handler (struct intr_frame *f)
     case SYS_READ:  /* Read from a file. */
     {
       lock_acquire (&files_lock);
-      // Todo: Check for buffer* in arg2
-      if(arg1 == 0)
-        // Todo
+      if (!check_n_user_bytes(arg2, arg3))
+        {
+          lock_release (&files_lock);
+          break;
+        }
+      if(arg1 == 0) {
+        unsigned i;
+        for (i = 0;i < arg3;i++)
+          arg2[i] = input_getc ();
+      }
       else
       {
         struct file *file = translate_fd (arg1);
@@ -112,9 +159,13 @@ syscall_handler (struct intr_frame *f)
     case SYS_WRITE:  /* Write to a file. */
     {
       lock_acquire (&files_lock);
-      // Todo: Check for buffer* in arg2
+      if (!check_n_user_bytes(arg2, arg3))
+        {
+          lock_release (&files_lock);
+          break;
+        }
       if(arg1 == 1)
-        putbuf(arg2,arg3);
+        putbuf (arg2,arg3);
       else
       {
         struct file *file = translate_fd (arg1);
@@ -227,6 +278,35 @@ remove_fd (int fd) {
   struct file_desc p;
   p.fd = fd;
   hash_delete (&cur->process.file_descriptors, &p.hash_elem);
+}
+
+bool 
+check_n_user_bytes (void * location, int n) {
+  if (location <= 0 || location + n > PHYS_BASE)
+    return false;
+  int i;
+  for (i = 0;i < n; i++)
+    if (get_user () == -1)
+      return false;
+  return true;
+}
+
+bool 
+check_user_name (const char * name) {
+  if (name <= 0 || name >= PHYS_BASE)
+    return false;
+  int i = 0;
+  while (true) 
+    {
+      if (name + i >= PHYS_BASE)
+        return false;
+      if (get_user () == -1)
+        return false;
+      else if (get_user () == 0)
+        break;
+      i++;
+    }
+  return true;
 }
 
 void
