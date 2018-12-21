@@ -11,6 +11,7 @@ struct process_data {
     struct list children;                   /* Direct children of the process */
     struct list confirmed_dead_children;    /* Children waited upon and confirmed dead */
     struct hash file_descriptors;           /* File descriptors acquired from kernel */
+    struct file *file;                      /* Process executable file */
     int next_file_fd = 2;
 };
 
@@ -35,7 +36,9 @@ bool process_hash_less (const struct hash_elem *,
 /* Looks up the table for the hashed element */
 struct process_hash * process_lookup (struct hash *table, int key);
 
-tid_t process_execute (const char *file_name);
+//tid_t process_execute (const char *file_name);
+tid_t process_execute (const char *cmd_str);
+
 int process_wait (tid_t);
 void process_exit (void);
 void process_activate (void);
