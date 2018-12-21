@@ -188,4 +188,10 @@ struct list_int_container {
 
 list_less_func list_int_less;
 
+/* Returns true if the value exists in the integer list */
+bool list_int_contains (struct list *, int value);
+
+/* Destroys all elements in a list */
+void list_int_destroy_all (struct list *);
+
 #endif /* lib/kernel/list.h */
