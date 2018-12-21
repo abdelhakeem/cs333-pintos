@@ -149,7 +149,7 @@ syscall_handler (struct intr_frame *f)
       if(arg1 == 0) {
         unsigned i;
         for (i = 0;i < arg3;i++)
-          arg2[i] = input_getc ();
+          *(char *)(arg2 + i) = input_getc ();
       }
       else
       {
@@ -267,11 +267,12 @@ generate_fd (struct file *file) {
   file_desc->fd = &cur->process.next_file_fd;
   file_desc->file = file;
   hash_insert (&cur->process.file_descriptors, &file_desc->hash_elem);
-  return &cur->process.next_file_fd++;
+  return cur->process.next_file_fd++;
 }
 
 static struct file * 
 translate_fd (int fd) {
+  struct thread* cur = thread_current ();
   struct file_desc p;
   struct hash_elem *e;
   p.fd = fd;
@@ -281,6 +282,7 @@ translate_fd (int fd) {
 
 void
 remove_fd (int fd) {
+  struct thread* cur = thread_current ();
   struct file_desc p;
   p.fd = fd;
   hash_delete (&cur->process.file_descriptors, &p.hash_elem);
@@ -292,7 +294,7 @@ check_n_user_bytes (void * location, int n) {
     return false;
   int i;
   for (i = 0;i < n; i++)
-    if (get_user () == -1)
+    if (get_user (location + i) == -1)
       return false;
   return true;
 }
@@ -306,9 +308,10 @@ check_user_name (const char * name) {
     {
       if (name + i >= PHYS_BASE)
         return false;
-      if (get_user () == -1)
+      int byte = get_user (name + i);
+      if (byte == -1)
         return false;
-      else if (get_user () == 0)
+      else if (byte == 0)
         break;
       i++;
     }

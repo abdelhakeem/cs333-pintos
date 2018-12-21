@@ -105,6 +105,14 @@ struct thread
     unsigned magic;                     /* Detects stack overflow. */
   };
 
+/* File Descriptor */
+struct file_desc
+  {
+    int fd;                     /* File Descriptor number */
+    struct file* file;          /* File pointer */
+    struct hash_elem hash_elem; /* Hash table element. */
+  };
+  
 /* If false (default), use round-robin scheduler.
    If true, use multi-level feedback queue scheduler.
    Controlled by kernel command-line option "-o mlfqs". */

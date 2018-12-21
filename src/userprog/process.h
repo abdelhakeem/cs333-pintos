@@ -12,7 +12,7 @@ struct process_data {
     struct list confirmed_dead_children;    /* Children waited upon and confirmed dead */
     struct hash file_descriptors;           /* File descriptors acquired from kernel */
     struct file *file;                      /* Process executable file */
-    int next_file_fd = 2;
+    int next_file_fd;
 };
 
 

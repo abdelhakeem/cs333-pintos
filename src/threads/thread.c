@@ -47,14 +47,6 @@ struct kernel_thread_frame
     void *aux;                  /* Auxiliary data for function. */
   };
 
-/* File Descriptor */
-struct file_desc
-  {
-    int fd;                     /* File Descriptor number */
-    struct file* file;          /* File pointer */
-    struct hash_elem hash_elem; /* Hash table element. */
-  };
-
 
 /* Statistics. */
 static long long idle_ticks;    /* # of timer ticks spent idle. */
@@ -81,7 +73,7 @@ static void *alloc_frame (struct thread *, size_t size);
 static void schedule (void);
 void thread_schedule_tail (struct thread *prev);
 static tid_t allocate_tid (void);
-static unsigned file_desc_hash (const struct hash_elem, void *aux UNUSED);
+static unsigned file_desc_hash (const struct hash_elem *, void *aux UNUSED);
 static bool file_desc_less (const struct hash_elem *a_,
                             const struct hash_elem *b_, void *aux UNUSED);
 
@@ -216,6 +208,7 @@ thread_create (const char *name, int priority,
   list_init (&(t->process.children));
   list_init (&(t->process.confirmed_dead_children));
   hash_init (&(t->process.file_descriptors), file_desc_hash, file_desc_less, NULL);
+  t->process.next_file_fd = 2;
 
   /* Add to run queue. */
   thread_unblock (t);
