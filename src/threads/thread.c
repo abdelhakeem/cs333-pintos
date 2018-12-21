@@ -4,6 +4,7 @@
 #include <random.h>
 #include <stdio.h>
 #include <string.h>
+#include <hash.h>
 #include "threads/flags.h"
 #include "threads/interrupt.h"
 #include "threads/intr-stubs.h"
@@ -14,6 +15,7 @@
 #ifdef USERPROG
 #include "userprog/process.h"
 #endif
+#include "filesys/file.h"
 
 /* Random value for struct thread's `magic' member.
    Used to detect stack overflow.  See the big comment at the top
@@ -45,6 +47,15 @@ struct kernel_thread_frame
     void *aux;                  /* Auxiliary data for function. */
   };
 
+/* File Descriptor */
+struct file_desc
+  {
+    int fd;                     /* File Descriptor number */
+    struct file* file;          /* File pointer */
+    struct hash_elem hash_elem; /* Hash table element. */
+  };
+
+
 /* Statistics. */
 static long long idle_ticks;    /* # of timer ticks spent idle. */
 static long long kernel_ticks;  /* # of timer ticks in kernel threads. */
@@ -70,6 +81,10 @@ static void *alloc_frame (struct thread *, size_t size);
 static void schedule (void);
 void thread_schedule_tail (struct thread *prev);
 static tid_t allocate_tid (void);
+static unsigned file_desc_hash (const struct hash_elem, void *aux UNUSED);
+static bool file_desc_less (const struct hash_elem *a_,
+                            const struct hash_elem *b_, void *aux UNUSED);
+
 
 /* Initializes the threading system by transforming the code
    that's currently running into a thread.  This can't work in
@@ -200,7 +215,7 @@ thread_create (const char *name, int priority,
 
   list_init (&(t->process.children));
   list_init (&(t->process.confirmed_dead_children));
-  list_init (&(t->process.file_descriptors));
+  hash_init (&(t->process.file_descriptors), file_desc_hash, file_desc_less, NULL);
 
   /* Add to run queue. */
   thread_unblock (t);
@@ -582,6 +597,28 @@ allocate_tid (void)
 
   return tid;
 }
+
+/* Returns a hash value for file_desc p. */
+unsigned
+file_desc_hash (const struct hash_elem *p_, void *aux UNUSED)
+{
+  const struct file_desc *p = hash_entry (p_, struct file_desc, hash_elem);
+  return hash_int (p->fd);
+}
+  
+/* Returns true if file_desc a precedes file_desc b. */
+bool
+file_desc_less (const struct hash_elem *a_, const struct hash_elem *b_,
+           void *aux UNUSED)
+{
+  const struct file_desc *a = hash_entry (a_, struct file_desc, hash_elem);
+  const struct file_desc *b = hash_entry (b_, struct file_desc, hash_elem);
+
+  return a->fd < b->fd;
+}
+
+
+
 
 /* Offset of `stack' member within `struct thread'.
    Used by switch.S, which can't figure it out on its own. */

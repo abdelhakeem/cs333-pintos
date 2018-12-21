@@ -19,6 +19,7 @@
 #include "threads/palloc.h"
 #include "threads/thread.h"
 #include "threads/vaddr.h"
+#include <hash.h>
 
 /* Whitespace characters, used as delimiters when parsing command-line
    arguments: space (0x20), form feed (0x0c), line feed (0x0a),
@@ -534,4 +535,28 @@ install_page (void *upage, void *kpage, bool writable)
      address, then map our page there. */
   return (pagedir_get_page (t->pagedir, upage) == NULL
           && pagedir_set_page (t->pagedir, upage, kpage, writable));
+}
+
+
+unsigned
+process_hash_func (const struct hash_elem * elem, void *aux UNUSED) {
+  const struct process_hash *hashed = hash_entry (elem, struct process_hash, elem);
+  return hash_int (hashed->key);
+}
+
+bool
+process_hash_less (const struct hash_elem *a,
+                        const struct hash_elem *b, void *aux UNUSED) {
+  const struct process_hash *process_a = hash_entry (a, struct process_hash, elem);
+  const struct process_hash *process_b = hash_entry (b, struct process_hash, elem);
+  return process_a->key < process_b->key;
+}
+
+struct process_hash *
+process_lookup (struct hash *table, int key) {
+  struct process_hash dummy;
+  struct hash_elem* e;
+  dummy.key = key;
+  e = hash_find (table, &dummy.elem);
+  return e != NULL ? hash_entry (e, struct process_hash, elem) : NULL;
 }
