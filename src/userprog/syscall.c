@@ -325,8 +325,7 @@ halt (void) {
 
 void exit (int status) {
   struct thread* cur = thread_current ();
-  /* Close all open files */
-  
+  /* Close all open files */  
   struct hash *file_descriptors = &cur->process.file_descriptors;
   if (!hash_empty (file_descriptors)) {
     struct hash_iterator i;
@@ -342,13 +341,6 @@ void exit (int status) {
       free (file_desc1);
     }
   }
-  /*struct list *file_descriptors = &cur->process.file_descriptors;
-  while (!list_empty (file_descriptors)) {
-    struct list_int_container *container =
-            list_entry(list_pop_front (file_descriptors), struct list_int_container, elem);
-    close (container->value);
-    free (container);
-  }*/
   /* Kill zombie children */
   lock_acquire (&waiting_lock);
   list_int_destroy_all (&cur->process.children);
