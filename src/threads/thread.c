@@ -212,6 +212,7 @@ thread_create (const char *name, int priority,
   list_init (&(t->process.confirmed_dead_children));
   hash_init (&(t->process.file_descriptors), file_desc_hash, file_desc_less, NULL);
   t->process.next_file_fd = 2;
+  t->exit_status = -1;
 
   /* Add to run queue. */
   thread_unblock (t);

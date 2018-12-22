@@ -228,6 +228,9 @@ process_exit (void)
   struct file *file = cur->process.file;
   if (file)
     file_close (file);
+  char* file_name, save_ptr;
+  file_name = strtok_r (cur->name, WHITESPACE_DELIM, &save_ptr);
+  printf("%s: exit(%d)\n", file_name, cur->exit_status);
 }
 
 /* Sets up the CPU for running user code in the current

@@ -193,7 +193,7 @@ syscall_handler (struct intr_frame *f)
     case SYS_TELL:  /* Report current position in a file. */
     {
       lock_acquire (&files_lock);
-      file_tell (translate_fd (arg1));
+      f->eax = file_tell (translate_fd (arg1));
       lock_release (&files_lock);
       break;
     }
@@ -325,6 +325,7 @@ halt (void) {
 
 void exit (int status) {
   struct thread* cur = thread_current ();
+  cur->exit_status = status;
   /* Close all open files */  
   struct hash *file_descriptors = &cur->process.file_descriptors;
   if (!hash_empty (file_descriptors)) {

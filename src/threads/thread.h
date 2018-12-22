@@ -96,6 +96,8 @@ struct thread
 
     struct process_data process;        /* Userprog process data */
 
+    int exit_status;                    /* Exit status if the thread exists */
+
 #ifdef USERPROG
     /* Owned by userprog/process.c. */
     uint32_t *pagedir;                  /* Page directory. */
