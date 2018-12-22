@@ -94,6 +94,7 @@ syscall_handler (struct intr_frame *f)
       if (!check_user_name (arg1)) 
         {
           lock_release (&files_lock);
+          exit(-1);
           break;
         }
       f->eax = filesys_create ((const char *) arg1, (off_t) arg2);
@@ -106,6 +107,7 @@ syscall_handler (struct intr_frame *f)
       if (!check_user_name (arg1)) 
         {
           lock_release (&files_lock);
+          exit(-1);
           break;
         }
       f->eax = filesys_remove ((const char *) arg1);
@@ -118,6 +120,7 @@ syscall_handler (struct intr_frame *f)
       if (!check_user_name (arg1)) 
         {
           lock_release (&files_lock);
+          exit(-1);
           break;
         }
       f->eax = generate_fd (filesys_open ((const char *) arg1));
@@ -137,6 +140,7 @@ syscall_handler (struct intr_frame *f)
       if (!check_n_user_bytes(arg2, arg3))
         {
           lock_release (&files_lock);
+          exit(-1);
           break;
         }
       if(arg1 == 0) {
@@ -161,6 +165,7 @@ syscall_handler (struct intr_frame *f)
       if (!check_n_user_bytes(arg2, arg3))
         {
           lock_release (&files_lock);
+          exit(-1);
           break;
         }
       if(arg1 == 1)
@@ -283,19 +288,22 @@ remove_fd (int fd) {
 
 bool 
 check_n_user_bytes (void * location, int n) {
-  if (location <= 0 || location + n > PHYS_BASE)
+  if (location == 0 || location + n > PHYS_BASE)
     return false;
+  /*
   int i;
   for (i = 0;i < n; i++)
     if (get_user (location + i) == -1)
       return false;
+  */
   return true;
 }
 
 bool 
 check_user_name (const char * name) {
-  if (name <= 0 || name >= PHYS_BASE)
+  if (name == 0 || name >= PHYS_BASE)
     return false;
+  /*
   int i = 0;
   while (true) 
     {
@@ -308,6 +316,7 @@ check_user_name (const char * name) {
         break;
       i++;
     }
+  */
   return true;
 }
 
