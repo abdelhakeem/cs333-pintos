@@ -157,17 +157,18 @@ start_process (void *cmd_str_)
    This function will be implemented in problem 2-2.  For now, it
    does nothing. */
 int
-process_wait (tid_t child_tid UNUSED) 
+process_wait (tid_t child_tid) 
 {
   struct thread* parent = thread_current ();
   int status = -1;
   if(!list_int_contains (&parent->process.children, child_tid)) {
     return -1; // Not a child
   }
-  if (!list_int_contains (&parent->process.confirmed_dead_children, child_tid)) {
+  if (!list_empty(&parent->process.confirmed_dead_children)
+        && !list_int_contains (&parent->process.confirmed_dead_children,
+							 child_tid)) {
     return -1; // Confirmed dead
   }
-
   lock_acquire (&waiting_lock);
   struct process_hash *searcher = process_lookup (&zombies, child_tid);
   if (searcher != NULL) { // Child is zombie
@@ -185,8 +186,9 @@ process_wait (tid_t child_tid UNUSED)
 
     hash_insert (&waiting_parents, &parent_container->elem);
     lock_release (&waiting_lock);
-
+    enum intr_level old_level = intr_disable ();
     thread_block ();
+    intr_set_level (old_level);
     /* Awaken by child here */
     status = parent_container->status; // Updated by child
     free(parent_container);

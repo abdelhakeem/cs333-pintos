@@ -326,13 +326,29 @@ halt (void) {
 void exit (int status) {
   struct thread* cur = thread_current ();
   /* Close all open files */
-  struct list *file_descriptors = &cur->process.file_descriptors;
+  
+  struct hash *file_descriptors = &cur->process.file_descriptors;
+  if (!hash_empty (file_descriptors)) {
+    struct hash_iterator i;
+    hash_first(&i, file_descriptors);
+    while (hash_next(&i)) {
+      struct file_desc *file_desc1
+            = hash_entry (hash_cur(&i), struct file_desc, hash_elem);
+      //close (file_desc1->file);
+      lock_acquire (&files_lock);
+      file_close (translate_fd (file_desc1->file));
+      remove_fd (file_desc1->file);
+      lock_release (&files_lock);
+      free (file_desc1);
+    }
+  }
+  /*struct list *file_descriptors = &cur->process.file_descriptors;
   while (!list_empty (file_descriptors)) {
     struct list_int_container *container =
             list_entry(list_pop_front (file_descriptors), struct list_int_container, elem);
     close (container->value);
     free (container);
-  }
+  }*/
   /* Kill zombie children */
   lock_acquire (&waiting_lock);
   list_int_destroy_all (&cur->process.children);
@@ -366,6 +382,7 @@ void exit (int status) {
   lock_release (&waiting_lock);
 
   list_int_destroy_all (&cur->process.confirmed_dead_children);
+  thread_exit();
 }
 
 int wait (pid_t pid) {
