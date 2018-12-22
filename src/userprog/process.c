@@ -224,6 +224,56 @@ process_exit (void)
       pagedir_destroy (pd);
     }
 
+  /* Close all open files */  
+  struct hash *file_descriptors = &cur->process.file_descriptors;
+  if (!hash_empty (file_descriptors)) {
+    struct hash_iterator i;
+    hash_first(&i, file_descriptors);
+    while (hash_next(&i)) {
+      struct file_desc *file_desc1
+            = hash_entry (hash_cur(&i), struct file_desc, hash_elem);
+      //close (file_desc1->file);
+      lock_acquire (&files_lock);
+      file_close (translate_fd (file_desc1->file));
+      remove_fd (file_desc1->file);
+      lock_release (&files_lock);
+      free (file_desc1);
+    }
+  }
+  /* Kill zombie children */
+  lock_acquire (&waiting_lock);
+  list_int_destroy_all (&cur->process.children);
+  struct list *children = &cur->process.children;
+  while (!list_empty (children)) {
+    struct list_int_container *container =
+            list_entry(list_pop_front (children), struct list_int_container, elem);
+    struct process_hash *zombie_searcher = process_lookup (&zombies, container->value);
+    if (zombie_searcher != NULL) {
+      hash_delete (&zombies, &zombie_searcher->elem);
+      free (zombie_searcher);
+    }
+    free (container);
+  }
+  /* Awake waiting parent if exists */
+  struct process_hash *parent_searcher = process_lookup (&waiting_parents, cur->tid);
+  if (parent_searcher != NULL) {
+    hash_delete (&waiting_parents, &parent_searcher->elem);
+    parent_searcher->status = cur->exit_status;
+    thread_unblock (parent_searcher->t);
+  } else {
+    /* Build zombie_container for hashing into zombies */
+    struct process_hash *zombie_container =
+            (struct process_hash *) malloc (sizeof (struct process_hash));
+    zombie_container->id = cur->tid;
+    zombie_container->key = cur->tid;
+    zombie_container->status = cur->exit_status;
+
+    hash_insert (&zombies, &zombie_container->elem);
+  }
+  lock_release (&waiting_lock);
+
+  list_int_destroy_all (&cur->process.confirmed_dead_children);
+
   struct file *file = cur->process.file;
   if (file)
     file_close (file);

@@ -16,6 +16,14 @@ struct hash zombies;
 /* Key: Waited upon child */
 struct hash waiting_parents;
 
+static struct lock files_lock;
+
+int generate_fd (struct file *);
+struct file * translate_fd (int fd);
+void remove_fd (int fd);
+bool check_n_user_bytes(void *, int n);
+bool check_user_name (const char *);
+
 /* Process-related system calls */
 
 /* Terminates Pintos by calling shutdown_power_off() (declared in threads/init.h).
