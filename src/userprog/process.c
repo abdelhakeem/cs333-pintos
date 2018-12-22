@@ -48,6 +48,14 @@ process_execute (const char *cmd_str)
     return TID_ERROR;
   strlcpy (cmdstr_copy, cmd_str, PGSIZE);
 
+  struct process_hash *pinfo = malloc (sizeof *pinfo);
+  sema_init (&pinfo->started, 0);
+  pinfo->key = thread_current ()->tid;
+  pinfo->status = 0;
+  lock_acquire (&startup_lock);
+  hash_insert (&execed_children, &pinfo->elem);
+  lock_release (&startup_lock);
+
   /* Create a new thread to execute CMD_STR. */
   tid = thread_create (cmd_str, PRI_DEFAULT, start_process, cmdstr_copy);
   if (tid == TID_ERROR)
@@ -56,7 +64,15 @@ process_execute (const char *cmd_str)
     struct list_int_container *child = (struct list_int_container *) malloc (sizeof(struct list_int_container));
     child->value = tid;
     list_push_front (&thread_current ()->process.children, &child->elem);
+
+    sema_down (&pinfo->started);
+    if (pinfo->status == -1)
+      tid = -1;
   }
+  lock_acquire (&startup_lock);
+  hash_delete (&execed_children, &pinfo->elem);
+  lock_release (&startup_lock);
+  free (pinfo);
   return tid;
 }
 
@@ -82,6 +98,11 @@ start_process (void *cmd_str_)
   if_.eflags = FLAG_IF | FLAG_MBS;
   success = load (file_name, &if_.eip, &if_.esp);
 
+  lock_acquire (&startup_lock);
+  struct process_hash *pinfo = process_lookup (&execed_children, thread_current ()->ptid);
+  lock_release (&startup_lock);
+  pinfo->status = success ? 0 : -1;
+  sema_up (&pinfo->started);
   /* If load failed, quit. */
   if (!success) 
     {

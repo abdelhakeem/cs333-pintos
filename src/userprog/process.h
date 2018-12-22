@@ -3,6 +3,7 @@
 
 #include <list.h>
 #include <hash.h>
+#include "threads/synch.h"
 
 typedef int tid_t;
 
@@ -27,6 +28,8 @@ struct process_hash {
     tid_t id;                       /* Identifier. */
     int status;
     struct thread *t;               /* Pointer to thread if exists */
+    struct semaphore started;       /* Semaphore for synchronization
+                                       with parent */
 };
 /* Hashing function for process_hash structure */
 unsigned process_hash_func (const struct hash_elem *, void *);

@@ -48,8 +48,10 @@ syscall_init (void)
   intr_register_int (0x30, 3, INTR_ON, syscall_handler, "syscall");
 
   lock_init (&waiting_lock);
+  lock_init (&startup_lock);
   hash_init (&zombies, process_hash_func, process_hash_less, NULL);
   hash_init (&waiting_parents, process_hash_func, process_hash_less, NULL);
+  hash_init (&execed_children, process_hash_func, process_hash_less, NULL);
 }
 
 static void

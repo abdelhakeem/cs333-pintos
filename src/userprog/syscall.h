@@ -15,8 +15,11 @@ struct lock waiting_lock;
 struct hash zombies;
 /* Key: Waited upon child */
 struct hash waiting_parents;
+/* Key: Child tid */
+struct hash execed_children;
 
 static struct lock files_lock;
+struct lock startup_lock;
 
 int generate_fd (struct file *);
 struct file * translate_fd (int fd);
