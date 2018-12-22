@@ -8,6 +8,7 @@
 #include <string.h>
 #include "userprog/gdt.h"
 #include "userprog/pagedir.h"
+#include "userprog/syscall.h"
 #include "userprog/tss.h"
 #include "filesys/directory.h"
 #include "filesys/file.h"
@@ -153,8 +154,44 @@ start_process (void *cmd_str_)
 int
 process_wait (tid_t child_tid UNUSED) 
 {
-  while(1);
-  return -1;
+  struct thread* parent = thread_current ();
+  int status = -1;
+  if(!list_int_contains (&parent->process.children, child_tid)) {
+    return -1; // Not a child
+  }
+  if (!list_int_contains (&parent->process.confirmed_dead_children, child_tid)) {
+    return -1; // Confirmed dead
+  }
+
+  lock_acquire (&waiting_lock);
+  struct process_hash *searcher = process_lookup (&zombies, child_tid);
+  if (searcher != NULL) { // Child is zombie
+    hash_delete (&zombies, &searcher->elem);
+    status = searcher->status;
+    free (searcher);
+    lock_release (&waiting_lock);
+  } else {
+    /* Build parent_container for hashing into waiting_parents */
+    struct process_hash *parent_container =
+            (struct process_hash *) malloc (sizeof (struct process_hash));
+    parent_container->id = parent->tid;
+    parent_container->key = child_tid;
+    parent_container->t = parent;
+
+    hash_insert (&waiting_parents, &parent_container->elem);
+    lock_release (&waiting_lock);
+
+    thread_block ();
+    /* Awaken by child here */
+    status = parent_container->status; // Updated by child
+    free(parent_container);
+  }
+  struct list_int_container *death_log_container =
+          (struct list_int_container *) malloc (sizeof (struct list_int_container));
+  death_log_container->value = child_tid;
+
+  list_push_front (&parent->process.confirmed_dead_children, &death_log_container->elem);
+  return status;
 }
 
 /* Free the current process's resources. */
