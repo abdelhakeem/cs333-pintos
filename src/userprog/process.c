@@ -51,7 +51,12 @@ process_execute (const char *cmd_str)
   /* Create a new thread to execute CMD_STR. */
   tid = thread_create (cmd_str, PRI_DEFAULT, start_process, cmdstr_copy);
   if (tid == TID_ERROR)
-    palloc_free_page (cmdstr_copy); 
+    palloc_free_page (cmdstr_copy);
+  else {
+    struct list_int_container *child = (struct list_int_container *) malloc (sizeof(struct list_int_container));
+    child->value = tid;
+    list_push_front (&thread_current ()->process.children, &child->elem);
+  }
   return tid;
 }
 
