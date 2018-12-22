@@ -225,6 +225,7 @@ process_exit (void)
     }
 
   /* Close all open files */  
+  /*
   struct hash *file_descriptors = &cur->process.file_descriptors;
   if (!hash_empty (file_descriptors)) {
     struct hash_iterator i;
@@ -233,13 +234,18 @@ process_exit (void)
       struct file_desc *file_desc1
             = hash_entry (hash_cur(&i), struct file_desc, hash_elem);
       //close (file_desc1->file);
-      lock_acquire (&files_lock);
-      file_close (translate_fd (file_desc1->file));
-      remove_fd (file_desc1->file);
-      lock_release (&files_lock);
+      printf("beforeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee lock_acquired\n");
+      //lock_acquire (&files_lock);
+      printf("lock_acquired\n");
+      file_close (file_desc1->file);
+      printf("close/\n");
+      remove_fd (file_desc1->fd);
+      printf("remove/\n");
+      //lock_release (&files_lock);
       free (file_desc1);
     }
   }
+  */
   /* Kill zombie children */
   lock_acquire (&waiting_lock);
   list_int_destroy_all (&cur->process.children);

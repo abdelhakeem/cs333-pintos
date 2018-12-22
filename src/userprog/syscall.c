@@ -11,6 +11,7 @@
 #include "filesys/filesys.h"
 #include "filesys/file.h"
 #include "process.h"
+#include "pagedir.h"
 
 
 static void syscall_handler (struct intr_frame *);
@@ -55,7 +56,8 @@ static void
 syscall_handler (struct intr_frame *f) 
 {
   //hex_dump(0,f->esp,200,true);	
-
+  if(pagedir_get_page(thread_current()->pagedir,f->esp) == NULL)
+    exit(-1);
   int *esp = f->esp;
   int sys_call_type = esp[0];
   int arg1 = esp[1];
