@@ -536,6 +536,7 @@ bool list_int_less (const struct list_elem *a,
 };
 
 bool list_int_contains (struct list *list, int value) {
+  if (list_empty (list)) return false;
   struct list_elem *iterator = list_begin (list);
   while (iterator != NULL) {
     if (list_entry (iterator, struct list_int_container, elem)->value == value)

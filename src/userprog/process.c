@@ -164,8 +164,7 @@ process_wait (tid_t child_tid)
   if(!list_int_contains (&parent->process.children, child_tid)) {
     return -1; // Not a child
   }
-  if (!list_empty(&parent->process.confirmed_dead_children)
-        && !list_int_contains (&parent->process.confirmed_dead_children,
+  if (list_int_contains (&parent->process.confirmed_dead_children,
 							 child_tid)) {
     return -1; // Confirmed dead
   }
