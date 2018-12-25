@@ -4,6 +4,7 @@
 #include "userprog/gdt.h"
 #include "threads/interrupt.h"
 #include "threads/thread.h"
+#include "threads/vaddr.h"
 
 /* Number of page faults processed. */
 static long long page_fault_cnt;
@@ -142,6 +143,9 @@ page_fault (struct intr_frame *f)
 
   /* Count page faults. */
   page_fault_cnt++;
+
+  if (is_user_vaddr (fault_addr))
+    thread_exit ();
 
   /* Determine cause. */
   not_present = (f->error_code & PF_P) == 0;
