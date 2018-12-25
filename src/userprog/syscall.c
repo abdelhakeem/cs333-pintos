@@ -271,7 +271,7 @@ generate_fd (struct file *file) {
     return -1;
   struct thread* cur = thread_current ();
   struct file_desc* file_desc = (struct file_desc*) malloc (sizeof (struct file_desc));
-  file_desc->fd = &cur->process.next_file_fd;
+  file_desc->fd = cur->process.next_file_fd;
   file_desc->file = file;
   hash_insert (&cur->process.file_descriptors, &file_desc->hash_elem);
   return cur->process.next_file_fd++;
