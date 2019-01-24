@@ -12,6 +12,7 @@
 #include "userprog/tss.h"
 #include "filesys/directory.h"
 #include "filesys/file.h"
+#include "filesys/off_t.h"
 #include "filesys/filesys.h"
 #include "threads/flags.h"
 #include "threads/init.h"
@@ -20,6 +21,7 @@
 #include "threads/palloc.h"
 #include "threads/thread.h"
 #include "threads/vaddr.h"
+#include "threads/synch.h"
 #include <hash.h>
 
 /* Whitespace characters, used as delimiters when parsing command-line
