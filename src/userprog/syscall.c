@@ -61,6 +61,11 @@ syscall_handler (struct intr_frame *f)
   if(pagedir_get_page(thread_current()->pagedir,f->esp) == NULL)
     exit(-1);
   int *esp = f->esp;
+  for (int i = 0; i < 4; ++i)
+  {
+    if(!is_user_vaddr(&esp[i]))
+      exit(-1);
+  }
   int sys_call_type = esp[0];
   int arg1 = esp[1];
   int arg2 = esp[2];
@@ -202,7 +207,8 @@ syscall_handler (struct intr_frame *f)
       case SYS_CLOSE:  /* Close a file. */
     {
       lock_acquire (&files_lock);
-      file_close (translate_fd (arg1));
+      file_close (translate_fd ((const char *)arg1));
+      //printf ("close");
       remove_fd (arg1);
       lock_release (&files_lock);
       break;
@@ -279,7 +285,10 @@ translate_fd (int fd) {
   struct hash_elem *e;
   p.fd = fd;
   e = hash_find (&cur->process.file_descriptors, &p.hash_elem);
-  return e != NULL ? hash_entry (e, struct file_desc, hash_elem) : NULL;
+  struct file_desc* fdp = hash_entry (e, struct file_desc, hash_elem) ;
+  struct file * f = fdp->file;
+  //return e != NULL ? hash_entry (e, struct file_desc, hash_elem) : NULL;
+  return f;
 }
 
 void
