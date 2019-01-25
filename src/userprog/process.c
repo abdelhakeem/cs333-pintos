@@ -12,7 +12,6 @@
 #include "userprog/tss.h"
 #include "filesys/directory.h"
 #include "filesys/file.h"
-#include "filesys/off_t.h"
 #include "filesys/filesys.h"
 #include "threads/flags.h"
 #include "threads/init.h"

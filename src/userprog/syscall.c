@@ -279,7 +279,11 @@ generate_fd (struct file *file) {
 
 struct file * 
 translate_fd (int fd) {
-  struct thread* cur = thread_current ();
+  struct thread* cur = thread_current ();  
+  if(hash_size (&cur->process.file_descriptors) < 1){
+    return NULL;
+  }
+
   struct file_desc p;
   struct hash_elem *e;
   p.fd = fd;
